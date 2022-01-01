@@ -20,28 +20,27 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"the-rings.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="动态工厂Factories: Encapsulating Object Creation A Factory forces object creation to occur through a common point, preventing creational code from appearing throught your system. Bruce EckelOn Java 8 工厂模式">
+<meta name="description" content="匿名内部类Anonymous classes enable you to make your code more concise. They enable you to declare and instantiate a class at the same time. They are like local classes except that they do not have a name.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="抽象工厂">
-<meta property="og:url" content="https://the-rings.github.io/2021/07/03/java-factory-pattern/index.html">
+<meta property="og:title" content="Java匿名内部类">
+<meta property="og:url" content="https://the-rings.github.io/2021/11/04/java-anonymous-inner-class/index.html">
 <meta property="og:site_name" content="长天逸夫">
-<meta property="og:description" content="动态工厂Factories: Encapsulating Object Creation A Factory forces object creation to occur through a common point, preventing creational code from appearing throught your system. Bruce EckelOn Java 8 工厂模式">
+<meta property="og:description" content="匿名内部类Anonymous classes enable you to make your code more concise. They enable you to declare and instantiate a class at the same time. They are like local classes except that they do not have a name.">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-07-03T12:01:57.000Z">
-<meta property="article:modified_time" content="2022-01-01T02:46:11.573Z">
+<meta property="article:published_time" content="2021-11-04T02:24:37.000Z">
+<meta property="article:modified_time" content="2022-01-01T03:47:27.565Z">
 <meta property="article:author" content="The Rings">
-<meta property="article:tag" content="Factory Pattern">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://the-rings.github.io/2021/07/03/java-factory-pattern/">
+<link rel="canonical" href="https://the-rings.github.io/2021/11/04/java-anonymous-inner-class/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://the-rings.github.io/2021/07/03/java-factory-pattern/","path":"2021/07/03/java-factory-pattern/","title":"抽象工厂"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://the-rings.github.io/2021/11/04/java-anonymous-inner-class/","path":"2021/11/04/java-anonymous-inner-class/","title":"Java匿名内部类"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>抽象工厂 | 长天逸夫</title>
+<title>Java匿名内部类 | 长天逸夫</title>
   
 
 
@@ -148,7 +147,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%B7%A5%E5%8E%82"><span class="nav-number">1.</span> <span class="nav-text">动态工厂</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82"><span class="nav-number">2.</span> <span class="nav-text">抽象工厂</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">匿名内部类</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -211,7 +210,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2021/07/03/java-factory-pattern/">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2021/11/04/java-anonymous-inner-class/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -224,7 +223,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          抽象工厂
+          Java匿名内部类
         </h1>
 
         <div class="post-meta-container">
@@ -235,7 +234,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-07-03 20:01:57" itemprop="dateCreated datePublished" datetime="2021-07-03T20:01:57+08:00">2021-07-03</time>
+      <time title="创建时间：2021-11-04 10:24:37" itemprop="dateCreated datePublished" datetime="2021-11-04T10:24:37+08:00">2021-11-04</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -243,7 +242,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Pattern/" itemprop="url" rel="index"><span itemprop="name">Pattern</span></a>
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
         </span>
     </span>
 
@@ -264,15 +263,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="动态工厂"><a href="#动态工厂" class="headerlink" title="动态工厂"></a>动态工厂</h1><blockquote><p>Factories: Encapsulating Object Creation</p>
-<p>A Factory forces object creation to occur through a common point, preventing creational code from appearing throught your system.</p>
-<footer><strong>Bruce Eckel</strong><cite>On Java 8</cite></footer></blockquote>
-<p>工厂模式其实是封装对象的创建过程. 强制将让对象的创建发生在一个统一的地方, 阻止代码散落在系统中.</p>
-<p>静态工厂就不说了, 就是通过传入对象的标识, 在创建方法内部判断条件new出目标对象.<br>那么动态工厂, 就更加解耦, 通过传入的标识, 反射得到类, 然后<code>xxx.getNewInstance()</code>, 例子如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getClass().getSimpleName();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ShapeFactory</span> </span>&#123;</span><br><span class="line">  <span class="function">Shape <span class="title">create</span><span class="params">(String type)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Circle</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Triangle</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicFactory</span> <span class="keyword">implements</span> <span class="title">ShapeFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Shape <span class="title">create</span><span class="params">(String type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> (Shape)</span><br><span class="line">          Class.forName(<span class="string">&quot;package.name.&quot;</span> + type).getConstructor().newInstance();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">      System.out.println(e.getLocalizedMessage());</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Shape s = <span class="keyword">new</span> DynamicFactory().create(<span class="string">&quot;Circle&quot;</span>);</span><br><span class="line">    System.out.println(s.toString());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h1><p>抽象工厂是在工厂的基础上又封装了一层, 即将工厂传入</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AbstractFactory</span> </span>&#123;</span><br><span class="line">    Supplier&lt;Player&gt; player;</span><br><span class="line">    Supplier&lt;Obstacle&gt; obstacle;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteFactory1</span> <span class="keyword">extends</span> <span class="title">AbstractFactory</span> </span>&#123;</span><br><span class="line">    ConcreteFactory() &#123;</span><br><span class="line">        player = Player1::<span class="keyword">new</span>;</span><br><span class="line">        obstacle = Obstacle1::<span class="keyword">new</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GameEnvironment</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Player p;</span><br><span class="line">  <span class="keyword">private</span> Obstacle ob;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">getInstance</span><span class="params">(AbstractFactory factory)</span> </span>&#123;</span><br><span class="line">        p = factory.player.get();</span><br><span class="line">        ob = factory.obstacle.get();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+        <h2 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h2><blockquote><p>Anonymous classes enable you to make your code more concise. They enable you to declare and instantiate a class at the same time. They are like local classes except that they do not have a name. Use them if you need to use a local class only once.</p>
+</blockquote>
+<p>匿名内部类可以使你的代码更加简洁，你可以在定义一个类的同时对其进行实例化。它与局部类很相似，不同的是它没有类名，如果某个局部类你只需要用一次，那么你就可以使用匿名内部类</p>
+<p>语法如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Contents</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Parcel</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Contents <span class="title">getContents</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Contents() &#123;</span><br><span class="line">			<span class="keyword">private</span> <span class="keyword">int</span> i = <span class="number">11</span>;</span><br><span class="line">			<span class="meta">@Override</span></span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">value</span><span class="params">()</span> </span>&#123;</span><br><span class="line">				<span class="keyword">return</span> i;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Parcel p = <span class="keyword">new</span> Parcel();</span><br><span class="line">		p.getContents().value();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// output:</span></span><br><span class="line"><span class="comment">// 11</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>声明一个表达式, new后加接口(类)名, 表示这个匿名内部类实现(继承)了对应的接口(类)</p>
 
     </div>
 
@@ -281,21 +277,18 @@
     
 
     <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Factory-Pattern/" rel="tag"># Factory Pattern</a>
-          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/06/19/build-multi-module-project-best-practice/" rel="prev" title="构建多模块项目的最佳实践">
-                  <i class="fa fa-chevron-left"></i> 构建多模块项目的最佳实践
+                <a href="/2021/11/02/chain-of-responsibility/" rel="prev" title="责任链模式">
+                  <i class="fa fa-chevron-left"></i> 责任链模式
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/07/24/java-annotation/" rel="next" title="Java注解">
-                  Java注解 <i class="fa fa-chevron-right"></i>
+                <a href="/2021/11/07/maven-wrapper/" rel="next" title="Maven Wrapper最佳实践">
+                  Maven Wrapper最佳实践 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
