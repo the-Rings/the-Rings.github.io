@@ -23,21 +23,21 @@
 <meta name="description" content="从创建一个最简单的gradle项目开始, 然后介绍multi module项目 Creating simplest Gradle project for Java以创建一个Redis Client为例, 引入一个第三方库Jedis依赖.  首先创建Root Project, 即创建一个文件夹, 添加settings.gradle文件并编辑12rootProject.name &#x3D; &amp;#x27;sim">
 <meta property="og:type" content="article">
 <meta property="og:title" content="构建多模块项目的最佳实践">
-<meta property="og:url" content="https://the-rings.github.io/2021/06/19/build-multi-module-project-best-practice/index.html">
+<meta property="og:url" content="https://the-rings.github.io/2021/06/19/multi-module-project-best-practice/index.html">
 <meta property="og:site_name" content="长天逸夫">
 <meta property="og:description" content="从创建一个最简单的gradle项目开始, 然后介绍multi module项目 Creating simplest Gradle project for Java以创建一个Redis Client为例, 引入一个第三方库Jedis依赖.  首先创建Root Project, 即创建一个文件夹, 添加settings.gradle文件并编辑12rootProject.name &#x3D; &amp;#x27;sim">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-06-19T02:19:26.000Z">
-<meta property="article:modified_time" content="2022-01-01T02:31:05.353Z">
+<meta property="article:modified_time" content="2022-01-04T14:41:39.655Z">
 <meta property="article:author" content="The Rings">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://the-rings.github.io/2021/06/19/build-multi-module-project-best-practice/">
+<link rel="canonical" href="https://the-rings.github.io/2021/06/19/multi-module-project-best-practice/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://the-rings.github.io/2021/06/19/build-multi-module-project-best-practice/","path":"2021/06/19/build-multi-module-project-best-practice/","title":"构建多模块项目的最佳实践"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://the-rings.github.io/2021/06/19/multi-module-project-best-practice/","path":"2021/06/19/multi-module-project-best-practice/","title":"构建多模块项目的最佳实践"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>构建多模块项目的最佳实践 | 长天逸夫</title>
@@ -160,7 +160,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -178,6 +178,16 @@
 </div>
 
 
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://draveness.me/" title="https:&#x2F;&#x2F;draveness.me&#x2F;" rel="noopener" target="_blank">Draveness</a>
+        </li>
+    </ul>
+  </div>
 
         </div>
       </div>
@@ -210,7 +220,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2021/06/19/build-multi-module-project-best-practice/">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2021/06/19/multi-module-project-best-practice/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -283,6 +293,7 @@
 <ol>
 <li>Gradle makes it easy to build common types of project — say Java libraries — by adding a layer of conventions and prebuilt functionality through plugins.</li>
 <li>Gradle models its builds as Directed Acyclic Graphs (DAGs) of tasks (units of work). What this means is that a build essentially configures a set of tasks and wires them together — based on their dependencies — to create that DAG. Once the task graph has been created, Gradle determines which tasks need to be run in which order and then proceeds to execute them. Gradle构建项目的过程是执行一系列的task, 这些task构成了一个有向无环图DAG. 对于Java项目这些task就是: check, assemble, jar等等, 这些任务是内置的不需要用户定义.<br>这里还经常提到一个概念: DSL . DSL 其实是 Domain Specific Language 的缩写，中文翻译为领域特定语言; 而与 DSL 相对的就是 GPL, 这里的 GPL 并不是我们知道的开源许可证, 而是 General Purpose Language 的简称，即通用编程语言，也就是我们非常熟悉的 Objective-C、Java、Python 以及 C 语言等等。比如Regex, HTML等, Gradle中支持Grovvy. 与 GPL 相对，DSL 与传统意义上的通用编程语言 C、Python 以及 Haskell 完全不同。通用的计算机编程语言是可以用来编写任意计算机程序的，并且能表达任何的可被计算的逻辑，同时也是 <a href="/2021/11/30/theory-turing-completeness/" title="图灵完备">图灵完备</a> 的。</li>
+<li>没有必要全局安装Gradle，在项目中使用Gradle Wrapper即可，同时实际中要配置GRADLE_USER_HOME环境变量，设置Gradle Cache的存放位置，以免在C盘形成很多垃圾文件</li>
 </ol>
 
     </div>
@@ -302,7 +313,7 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/07/03/factory-pattern/" rel="next" title="抽象工厂">
+                <a href="/2021/07/03/pattern-factory/" rel="next" title="抽象工厂">
                   抽象工厂 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
@@ -324,7 +335,7 @@
 
 
 <div class="copyright">
-  &copy; 
+  &copy; 2019 - 2029 – 
   <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>

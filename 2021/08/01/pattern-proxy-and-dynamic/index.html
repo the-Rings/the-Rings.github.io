@@ -23,22 +23,22 @@
 <meta name="description" content="SpringAOP采用动态代理和字节码生成技术实现. Static Proxy在软件系统中, 代理机制的实现有现成的设计模式支持, 就是代理模式. 在代理模式中, 通常有这几种抽象概念.  ISubject 该接口是对被访问资源的抽象 SubjectImpl 被访问资源的具体实现 SubjectProxy 被访问资源的代理实现 Client 访问者   没有代理  1234567891011121">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java动态代理">
-<meta property="og:url" content="https://the-rings.github.io/2021/08/01/java-proxy-and-dynamic-proxy/index.html">
+<meta property="og:url" content="https://the-rings.github.io/2021/08/01/pattern-proxy-and-dynamic/index.html">
 <meta property="og:site_name" content="长天逸夫">
 <meta property="og:description" content="SpringAOP采用动态代理和字节码生成技术实现. Static Proxy在软件系统中, 代理机制的实现有现成的设计模式支持, 就是代理模式. 在代理模式中, 通常有这几种抽象概念.  ISubject 该接口是对被访问资源的抽象 SubjectImpl 被访问资源的具体实现 SubjectProxy 被访问资源的代理实现 Client 访问者   没有代理  1234567891011121">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-01T01:23:05.000Z">
-<meta property="article:modified_time" content="2022-01-03T04:43:47.895Z">
+<meta property="article:modified_time" content="2022-01-05T07:48:38.975Z">
 <meta property="article:author" content="The Rings">
 <meta property="article:tag" content="Proxy">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://the-rings.github.io/2021/08/01/java-proxy-and-dynamic-proxy/">
+<link rel="canonical" href="https://the-rings.github.io/2021/08/01/pattern-proxy-and-dynamic/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://the-rings.github.io/2021/08/01/java-proxy-and-dynamic-proxy/","path":"2021/08/01/java-proxy-and-dynamic-proxy/","title":"Java动态代理"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://the-rings.github.io/2021/08/01/pattern-proxy-and-dynamic/","path":"2021/08/01/pattern-proxy-and-dynamic/","title":"Java动态代理"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Java动态代理 | 长天逸夫</title>
@@ -148,7 +148,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Static-Proxy"><span class="nav-number">1.</span> <span class="nav-text">Static Proxy</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dynamic-Proxy"><span class="nav-number">2.</span> <span class="nav-text">Dynamic Proxy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%BA%90%E7%A0%81"><span class="nav-number">2.1.</span> <span class="nav-text">动态代理源码</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Static-Proxy"><span class="nav-number">1.</span> <span class="nav-text">Static Proxy</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dynamic-Proxy"><span class="nav-number">2.</span> <span class="nav-text">Dynamic Proxy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E6%BA%90%E7%A0%81"><span class="nav-number">2.1.</span> <span class="nav-text">动态代理源码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Questions"><span class="nav-number">3.</span> <span class="nav-text">Questions</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -161,7 +161,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -179,6 +179,16 @@
 </div>
 
 
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://draveness.me/" title="https:&#x2F;&#x2F;draveness.me&#x2F;" rel="noopener" target="_blank">Draveness</a>
+        </li>
+    </ul>
+  </div>
 
         </div>
       </div>
@@ -211,7 +221,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2021/08/01/java-proxy-and-dynamic-proxy/">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2021/08/01/pattern-proxy-and-dynamic/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -275,7 +285,7 @@
 <blockquote>
 <p>没有代理</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ISubject subject;</span><br><span class="line">    Client(ISubject subject)&#123;</span><br><span class="line">        <span class="keyword">this</span>.subject = subject;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String url = ...;</span><br><span class="line">		subject.request(url);</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Client client = <span class="keyword">new</span> Client(<span class="keyword">new</span> SubjectImpl());</span><br><span class="line">        client.doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubjectImpl</span> <span class="keyword">implements</span> <span class="title">ISubject</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">request</span><span class="params">(url)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;OK&quot;</span> + url;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ISubject subject;</span><br><span class="line">    Client(ISubject subject)&#123;</span><br><span class="line">        <span class="keyword">this</span>.subject = subject;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String url = ...;</span><br><span class="line">        subject.request(url);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Client client = <span class="keyword">new</span> Client(<span class="keyword">new</span> SubjectImpl());</span><br><span class="line">        client.doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubjectImpl</span> <span class="keyword">implements</span> <span class="title">ISubject</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">request</span><span class="params">(url)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;OK&quot;</span> + url;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>增加了代理之后</p>
 </blockquote>
@@ -300,7 +310,11 @@
 <li>第三步，根据第二步生成的代理类，调用<code>cl.getConstructor(&#123; InvocationHandler.class &#125;)</code>, 相当于调用了代理类的构造方法, 在通过构造器调用<code>cons.newInstance(new RequestCtrlInvocationHandler(new ISubjectImpl()))</code>，最终强制转换ISubject对象。</li>
 <li>第四步，当代理对象调用<code>ISubject</code>的<code>request</code>时，首先进入<code>RequestCtrlInvocationHandler</code>的invoke方法，在该方法的最后，通过method.invoke(…)来真正调用<code>ISubjectImpl.request</code></li>
 </ul>
-<p> 问题1: 代理为什么需要实现某个接口, 继承某个类, 不可以代理吗?<br> 答: 代理描述的场景是代理目标类所有的方法, 如果目标类只是继承的话, 它并不一定重写了所有的方法, 所以有些方法没办法代理. 如果要对没有实现任何接口的类, 可以使用CGLIB, 为目标类生成一个子类, 就可以通过子类调用父类的方法, 并在方法的前后加上pre-process或者post-process</p>
+<h1 id="Questions"><a href="#Questions" class="headerlink" title="Questions"></a>Questions</h1><p>问题1: 代理为什么需要实现某个接口, 继承某个类, 不可以代理吗?<br>答: 如果要对没有实现任何接口的类, 不使用Java的动态代理，使用CGLIB, 为目标类生成一个子类, 就可以通过子类调用父类的方法, 并在方法的前后加上pre-process或者post-process<br>问题2：为什么Java动态代理需要接口？<br>答：Java仅仅支持单继承，自动生成的代理类$Proxy0需要继承Proxy类，所以必须通过接口实现，接口中的每个方法都会被$Proxy0重写，在重写的方法体中去调用真正的目标类的方法。 这一点总是被诟病，也是语言设计的缺陷，但是对于静态代理，以下代码演示，不需要接口，也可以代理：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> SubjectProxy subject;</span><br><span class="line"></span><br><span class="line">  Client(SubjectProxy subject) &#123;</span><br><span class="line">    <span class="keyword">this</span>.subject = subject;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String url = <span class="string">&quot;...&quot;</span>;</span><br><span class="line">    subject.request(url);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    SubjectProxy proxy = <span class="keyword">new</span> SubjectProxy(<span class="keyword">new</span> SubjectImpl());</span><br><span class="line">    Client client = <span class="keyword">new</span> Client(proxy);</span><br><span class="line">    client.doSomething();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubjectImpl</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">request</span><span class="params">(String url)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubjectProxy</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> SubjectImpl subject;</span><br><span class="line"></span><br><span class="line">  SubjectProxy(SubjectImpl subject) &#123;</span><br><span class="line">    <span class="keyword">this</span>.subject = subject;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">request</span><span class="params">(String url)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// add pre-process logic if neccessary</span></span><br><span class="line">    String res = subject.request(url);</span><br><span class="line">    <span class="comment">// add post process logic if neccessary</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Proxy:&quot;</span> + res;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
 
     </div>
 
@@ -344,7 +358,7 @@
 
 
 <div class="copyright">
-  &copy; 
+  &copy; 2019 - 2029 – 
   <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>

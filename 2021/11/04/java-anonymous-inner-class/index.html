@@ -28,7 +28,7 @@
 <meta property="og:description" content="匿名内部类Anonymous classes enable you to make your code more concise. They enable you to declare and instantiate a class at the same time. They are like local classes except that they do not have a name.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-04T02:24:37.000Z">
-<meta property="article:modified_time" content="2022-01-01T03:47:27.565Z">
+<meta property="article:modified_time" content="2022-01-05T03:55:00.672Z">
 <meta property="article:author" content="The Rings">
 <meta name="twitter:card" content="summary">
 
@@ -160,7 +160,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -178,6 +178,16 @@
 </div>
 
 
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://draveness.me/" title="https:&#x2F;&#x2F;draveness.me&#x2F;" rel="noopener" target="_blank">Draveness</a>
+        </li>
+    </ul>
+  </div>
 
         </div>
       </div>
@@ -266,9 +276,9 @@
         <h2 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h2><blockquote><p>Anonymous classes enable you to make your code more concise. They enable you to declare and instantiate a class at the same time. They are like local classes except that they do not have a name. Use them if you need to use a local class only once.</p>
 </blockquote>
 <p>匿名内部类可以使你的代码更加简洁，你可以在定义一个类的同时对其进行实例化。它与局部类很相似，不同的是它没有类名，如果某个局部类你只需要用一次，那么你就可以使用匿名内部类</p>
-<p>语法如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Contents</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Parcel</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Contents <span class="title">getContents</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Contents() &#123;</span><br><span class="line">			<span class="keyword">private</span> <span class="keyword">int</span> i = <span class="number">11</span>;</span><br><span class="line">			<span class="meta">@Override</span></span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">value</span><span class="params">()</span> </span>&#123;</span><br><span class="line">				<span class="keyword">return</span> i;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Parcel p = <span class="keyword">new</span> Parcel();</span><br><span class="line">		p.getContents().value();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// output:</span></span><br><span class="line"><span class="comment">// 11</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>声明一个表达式, new后加接口(类)名, 表示这个匿名内部类实现(继承)了对应的接口(类)</p>
+<p>匿名内部类，顾名思义，这个类是没有名字的，定义即实例化对象<br>语法如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Contents</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">int</span> <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Parcel</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> Contents <span class="title">getContents</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Contents() &#123;</span><br><span class="line">      <span class="keyword">private</span> <span class="keyword">int</span> i = <span class="number">11</span>;</span><br><span class="line"></span><br><span class="line">      <span class="meta">@Override</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">value</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> i;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Parcel p = <span class="keyword">new</span> Parcel();</span><br><span class="line">    p.getContents().value();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// output:</span></span><br><span class="line">  <span class="comment">// 11</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>声明一个表达式, new后加接口(类)名(并且此接口或类一定是已经声明的), 表示这个匿名内部类实现(继承)了对应的接口(类)。</p>
 
     </div>
 
@@ -282,13 +292,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/11/02/chain-of-responsibility/" rel="prev" title="责任链模式">
+                <a href="/2021/11/02/pattern-chain-of-responsibility/" rel="prev" title="责任链模式">
                   <i class="fa fa-chevron-left"></i> 责任链模式
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/11/07/maven-wrapper/" rel="next" title="Maven Wrapper最佳实践">
-                  Maven Wrapper最佳实践 <i class="fa fa-chevron-right"></i>
+                <a href="/2021/11/05/spring-startup/" rel="next" title="SpringBoot启动分析">
+                  SpringBoot启动分析 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -309,7 +319,7 @@
 
 
 <div class="copyright">
-  &copy; 
+  &copy; 2019 - 2029 – 
   <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
