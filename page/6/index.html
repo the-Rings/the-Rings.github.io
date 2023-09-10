@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"the-rings.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+<meta property="og:type" content="website">
+<meta property="og:title" content="免逸">
+<meta property="og:url" content="https://the-rings.github.io/page/6/index.html">
+<meta property="og:site_name" content="免逸">
+<meta property="og:description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="The Rings">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://the-rings.github.io/page/6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/6/index.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>免逸</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">免逸</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">下一代web开发是什么样的？下一代类报表系统是什么样的？</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">The Rings</p>
+  <div class="site-description" itemprop="description">软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2021/06/19/gradle-multi-module-project/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/06/19/gradle-multi-module-project/" class="post-title-link" itemprop="url">使用Gradle构建多项目</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-19 10:19:26" itemprop="dateCreated datePublished" datetime="2021-06-19T10:19:26+08:00">2021-06-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Package-Manager/" itemprop="url" rel="index"><span itemprop="name">Package Manager</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>从创建一个最简单的gradle项目开始, 然后介绍multi module项目</p>
+<h1 id="Creating-simplest-Gradle-project-for-Java"><a href="#Creating-simplest-Gradle-project-for-Java" class="headerlink" title="Creating simplest Gradle project for Java"></a>Creating simplest Gradle project for Java</h1><p>以创建一个Redis Client为例, 引入一个第三方库Jedis依赖.</p>
+<ol>
+<li>首先创建Root Project, 即创建一个文件夹, 添加<code>settings.gradle</code>文件并编辑<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rootProject.name = <span class="string">&#x27;simplest-gradle-project&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>在root目录下, 创建gradle wrapper的必要文件, <code>gradlew</code>, <code>gradlew.bat</code>, <code>gradle</code>(文件夹), 这些文件可以通过 Spring Initializr 新建一个项目得到.</li>
+<li>在每个subproject下创建<code>build.gradle</code>文件, 如下内容(示例)<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">	id <span class="string">&#x27;java&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">group</span> = <span class="string">&#x27;org.demo&#x27;</span></span><br><span class="line">version = <span class="string">&#x27;0.0.1-SNAPSHOT&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">    maven &#123;</span><br><span class="line">      url <span class="string">&#x27;https://maven.aliyun.com/repository/public/&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    maven &#123;</span><br><span class="line">      url <span class="string">&#x27;https://maven.aliyun.com/repository/spring/&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    mavenLocal()</span><br><span class="line">    mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">	<span class="comment">// implementation &#x27;redis.clients:jedis:jedis-3.6.2&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>如果通过gradle task创建src文件目录(在build.gradle文件中添加下述代码), 然后运行 <code>./gradlew :createDirs</code>, 或者直接通过IDEA的gradle插件, 双击<code>simplest-gradle-project &gt; Tasks &gt; other &gt; createDirs</code><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建缺失的src目录</span></span><br><span class="line"><span class="keyword">task</span> createDirs &#123;</span><br><span class="line">    <span class="keyword">sourceSets</span>*.java.srcDirs*.<span class="keyword">each</span>&#123;</span><br><span class="line">        it.mkdirs()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">sourceSets</span>*.resources.srcDirs*.<span class="keyword">each</span>&#123;</span><br><span class="line">        it.mkdirs()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>参考官方文档整理而来,<br><a target="_blank" rel="noopener" href="https://spring.io/guides/gs/multi-module/">https://spring.io/guides/gs/multi-module/</a></p>
+<h1 id="Creating-a-Multi-Module-Project"><a href="#Creating-a-Multi-Module-Project" class="headerlink" title="Creating a Multi Module Project"></a>Creating a Multi Module Project</h1><ol>
+<li>首先创建Root Project, 即创建一个文件夹, 添加<code>settings.gradle</code>文件并编辑(首先确定自己有多少子项目)<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rootProject.name = <span class="string">&#x27;gradle-multi-module&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">include</span> <span class="string">&#x27;subproject1&#x27;</span></span><br><span class="line"><span class="keyword">include</span> <span class="string">&#x27;subproject2&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li>在root目录下, 创建gradle wrapper的必要文件, <code>gradlew</code>, <code>gradlew.bat</code>, <code>gradle</code>(文件夹), 这些文件可以通过 Spring Initializr 新建一个项目得到.</li>
+<li>在root目录下, 创建subprojects文件夹, <code>mkdir -p src/main/java/com/example/multimodule/service</code></li>
+<li>在每个subproject下创建<code>build.gradle</code>文件, 如下内容(示例):<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">	id <span class="string">&#x27;org.springframework.boot&#x27;</span> version <span class="string">&#x27;2.5.2&#x27;</span></span><br><span class="line">	id <span class="string">&#x27;io.spring.dependency-management&#x27;</span> version <span class="string">&#x27;1.0.11.RELEASE&#x27;</span></span><br><span class="line">	id <span class="string">&#x27;java&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">group</span> = <span class="string">&#x27;com.example&#x27;</span></span><br><span class="line">version = <span class="string">&#x27;0.0.1-SNAPSHOT&#x27;</span></span><br><span class="line"><span class="keyword">sourceCompatibility</span> = <span class="string">&#x27;1.8&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">repositories</span> &#123;</span><br><span class="line">    maven &#123;</span><br><span class="line">      url <span class="string">&#x27;https://maven.aliyun.com/repository/public/&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    maven &#123;</span><br><span class="line">      url <span class="string">&#x27;https://maven.aliyun.com/repository/spring/&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    mavenLocal()</span><br><span class="line">    mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">	implementation <span class="string">&#x27;org.springframework.boot:spring-boot-starter&#x27;</span></span><br><span class="line">	testImplementation <span class="string">&#x27;org.springframework.boot:spring-boot-starter-test&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Gradle"><a href="#Gradle" class="headerlink" title="Gradle"></a>Gradle</h3><p>对Gradle做出一些总结.</p>
+<p>gradle是一个扩展性很强的build tool, 比Maven更加灵活. </p>
+<ol>
+<li>Gradle makes it easy to build common types of project — say Java libraries — by adding a layer of conventions and prebuilt functionality through plugins.</li>
+<li>Gradle models its builds as Directed Acyclic Graphs (DAGs) of tasks (units of work). What this means is that a build essentially configures a set of tasks and wires them together — based on their dependencies — to create that DAG. Once the task graph has been created, Gradle determines which tasks need to be run in which order and then proceeds to execute them. Gradle构建项目的过程是执行一系列的task, 这些task构成了一个有向无环图DAG. 对于Java项目这些task就是: check, assemble, jar等等, 这些任务是内置的不需要用户定义.<br>这里还经常提到一个概念: DSL . DSL 其实是 Domain Specific Language 的缩写，中文翻译为领域特定语言; 而与 DSL 相对的就是 GPL, 这里的 GPL 并不是我们知道的开源许可证, 而是 General Purpose Language 的简称，即通用编程语言，也就是我们非常熟悉的 Objective-C、Java、Python 以及 C 语言等等。比如Regex, HTML等, Gradle中支持Grovvy. 与 GPL 相对，DSL 与传统意义上的通用编程语言 C、Python 以及 Haskell 完全不同。通用的计算机编程语言是可以用来编写任意计算机程序的，并且能表达任何的可被计算的逻辑，同时也是 <a href="/2021/11/30/theory-turing-completeness/" title="图灵完备">图灵完备</a> 的。</li>
+<li>没有必要全局安装Gradle，在项目中使用Gradle Wrapper即可，同时实际中要配置GRADLE_USER_HOME环境变量，设置Gradle Cache的存放位置，以免在C盘形成很多垃圾文件</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2021/06/15/java-classloader/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/06/15/java-classloader/" class="post-title-link" itemprop="url">Java中的类加载器</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-15 10:50:33" itemprop="dateCreated datePublished" datetime="2021-06-15T10:50:33+08:00">2021-06-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="ClassLoader"><a href="#ClassLoader" class="headerlink" title="ClassLoader"></a>ClassLoader</h1><p>A class loader is an object that is responsible for loading classes. The class ClassLoader is an abstract class. Given the binary name of a class, a class loader should attempt to locate or generate data that constitutes a definition for the class. A typical strategy is to transform the name into a file name and then read a “class file” of that name from a file system.<br>类加载器负责加载类. ClassLoader是抽象类. 对于给定类的二进制名字, 类加载器应该试图去定位或者生成构成一个类定义的数据. 一个典型的策略是将这个名字转换为文件名, 然后从文件体统中读取该名字的class file.</p>
+<p>Every Class object contains a reference to the ClassLoader that defined it.<br>每个Class对象都包含一个引用, 它指向定义它的那个ClassLoader.</p>
+<blockquote>
+<p>这一点在源码中表现的就是, 在Class类中, 有一个Filed是ClassLoader类型</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Class</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>,</span></span><br><span class="line"><span class="class">                              <span class="title">GenericDeclaration</span>,</span></span><br><span class="line"><span class="class">                              <span class="title">Type</span>,</span></span><br><span class="line"><span class="class">                              <span class="title">AnnotatedElement</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * Private constructor. Only the Java Virtual Machine creates Class objects.</span></span><br><span class="line"><span class="comment">     * This constructor is not used and prevents the default constructor being</span></span><br><span class="line"><span class="comment">     * generated.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="comment">// <span class="doctag">NOTE:</span> 这里出现了私有构造器, 说明这个构造函数是能在Class这类里使用</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Class</span><span class="params">(ClassLoader loader)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Initialize final field for classLoader.  The initialization value of non-null</span></span><br><span class="line">        <span class="comment">// prevents future JIT optimizations from assuming this final field is null.</span></span><br><span class="line">        classLoader = loader;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Initialized in JVM not by private constructor</span></span><br><span class="line">    <span class="comment">// This field is filtered from reflection access, i.e. getDeclaredField</span></span><br><span class="line">    <span class="comment">// will throw NoSuchFieldException</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ClassLoader classLoader;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Applications implement subclasses of ClassLoader in order to extend the manner in which the Java virtual machine dynamically loads classes.<br>应用实现了ClassLoader的子类, 是为了扩展JVM动态加载类的方式.</p>
+<p>The ClassLoader class uses a delegation model to search for classes and resources. Each instance of ClassLoader has an associated parent class loader. When requested to find a class or resource, a ClassLoader instance will delegate the search for the class or resource to its parent class loader before attempting to find the class or resource itself. The virtual machine’s built-in class loader, called the “bootstrap class loader”, does not itself have a parent but may serve as the parent of a ClassLoader instance.<br>ClassLoader 类使用委托模型来搜索类和资源。 ClassLoader 的每个实例都有一个关联的父类加载器。当请求查找类或资源时，ClassLoader 实例会将类或资源的搜索委托给其父类加载器，然后再尝试查找类或资源本身。虚拟机的内置类加载器，称为“引导类加载器”，它本身没有父级，但可以作为 ClassLoader 实例的父级。</p>
+<p>Normally, the Java virtual machine loads classes from the local file system in a platform-dependent manner. For example, on UNIX systems, the virtual machine loads classes from the directory defined by the CLASSPATH environment variable.<br>一般情况下, JVM加载类通过本地的文件系统. 比如, UNIX系统, JVN从CLASSPATH环境变量定义的目录中来加载类.</p>
+<p>However, some classes may not originate from a file; they may originate from other sources, such as the network, or they could be constructed by an application. The method defineClass converts an array of bytes into an instance of class Class. Instances of this newly defined class can be created using Class.newInstance.<br>然而, 有些类可能不来源于文件; 它们可能来源于其他资源, 比如网络或者被应用构造. <code>defineClass</code>方法将字节数组转换为类Class的实例. 这个新定义的类的实例可以被<code>Class.newInstace</code>创建.</p>
+<p>The methods and constructors of objects created by a class loader may reference other classes. To determine the class(es) referred to, the Java virtual machine invokes the loadClass method of the class loader that originally created the class.<br>被类加载器创建的对象, 它的方法和构造器可能引用自其他类. </p>
+<p>For example, an application could create a network class loader to download class files from a server. Sample code might look like:</p>
+<p>   ClassLoader loader = new NetworkClassLoader(host, port);<br>   Object main = loader.loadClass(“Main”, true).newInstance();<br>        . . .</p>
+<p>The network class loader subclass must define the methods findClass and loadClassData to load a class from the network. Once it has downloaded the bytes that make up the class, it should use the method defineClass to create a class instance. A sample implementation is:</p>
+<pre><code> class NetworkClassLoader extends ClassLoader &#123;
+     String host;
+     int port;
+
+     public Class findClass(String name) &#123;
+         byte[] b = loadClassData(name);
+         return defineClass(name, b, 0, b.length);
+     &#125;
+
+     private byte[] loadClassData(String name) &#123;
+         // load the class data from the connection
+          . . .
+     &#125;
+ &#125;
+</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2021/06/07/java-streams/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/06/07/java-streams/" class="post-title-link" itemprop="url">流式编程</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-07 18:59:42" itemprop="dateCreated datePublished" datetime="2021-06-07T18:59:42+08:00">2021-06-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Java8引入新的概念Streams. 如何将此融入到现有的生态百万行代码的类库中. 一个巨大挑战来自使用接口的库, 如果将一个新的方法添加到接口, 那就破坏了每一个实现接口的类,因为这些类要实现你新添加的方法.<br>设计者给出的解决方案是, 在接口中添加被default修饰的方法.<br>通过这种方案, 将流式编程平滑地嵌入到现有的类中.<br>流的操作有三种: creating streams, intermediate operations, terminal operations.</p>
+<blockquote><p><strong>Declarative programming</strong> is a style where we state what we want done, rather than<br>specifying how, and it’s what you see in functional programming. Notice it’s much<br>more difficult to understand the <strong>imperative programming</strong>.</p>
+<footer><strong>Bruce Eckel</strong><cite>OnJava8</cite></footer></blockquote>
+<p>对比一下声明式编程和命令式编程</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Declarative programming</span></span><br><span class="line"><span class="keyword">new</span> Random(<span class="number">47</span>).ints(<span class="number">5</span>, <span class="number">20</span>).distinct().limit(<span class="number">7</span>).sorted().forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Imperative programming</span></span><br><span class="line">Random rand = <span class="keyword">new</span> Random(<span class="number">47</span>);</span><br><span class="line">SortedSet&lt;Integer&gt; rints = <span class="keyword">new</span> TreeSet&lt;&gt;();</span><br><span class="line"><span class="keyword">while</span>(rints.size() &lt; <span class="number">7</span>) &#123;</span><br><span class="line">    <span class="keyword">int</span> r = rand.nextInt(<span class="number">20</span>);</span><br><span class="line">    <span class="keyword">if</span>(r &lt; <span class="number">5</span>) <span class="keyword">continue</span>;</span><br><span class="line">    rints.add(r);</span><br><span class="line">&#125;</span><br><span class="line">System.out.println(rints);</span><br></pre></td></tr></table></figure>
+<p>显然命令式编程更难理解, 而且在Streams过程中, 没有明显地看到任何变量的定义.<br>语义清晰是Java Stream API的优点之一.</p>
+<h1 id="Creating-Streams"><a href="#Creating-Streams" class="headerlink" title="Creating Streams"></a>Creating Streams</h1><ol>
+<li>通过Streams.of(…)将一组元素转换为Stream</li>
+<li>每隔集合可以通过调用其<code>.stream()</code>方法来产生一个流.</li>
+<li><code>Stream.generate(...)</code>, generate接收一个参数<code>Supplier&lt;T&gt;</code>, 通过调用实现了<code>Supplier&lt;T&gt;</code>接口的类的get方法(也可以传Lambda表达式, 原理也是有个类实现了Supplier接口, 具体在函数式编程里有详细介绍). 不过generate必须有一个限制, 不能无限制的运行. 否则会造成<code>java.lang.OutOfMemoryError: Java heap space</code>错误. 比如, 中间加入了limit函数<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Stream.generate(() -&gt; <span class="string">&quot;h&quot;</span>).limit(<span class="number">30</span>).collect(Collectors.joining());</span><br></pre></td></tr></table></figure></li>
+<li><code>Stream.iterate(...)</code>, iterate接收的参数第一个是seed, 第二个其实是<code>Function&lt;T&gt;</code>, 如下例子, 生成斐波那契数列:<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="comment">// seed将会作为i的初始化值, 返回值y将作为参数再次会传递给该函数</span></span><br><span class="line">Stream.iterate(<span class="number">0</span>, (i) -&gt; &#123;<span class="keyword">int</span> y = i + x; x = i; <span class="keyword">return</span> y;&#125;).limit(<span class="number">30</span>).forEach(System.out::println);</span><br></pre></td></tr></table></figure></li>
+<li>使用建造者模式. 其实建造者模式类似于新建一个集合, 然后往里put元素.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Stream.Builder&lt;String&gt; builder = Stream.builder();</span><br><span class="line">String res = builder.build().map(...).collect(Collector.joining(<span class="string">&quot; &quot;</span>));</span><br></pre></td></tr></table></figure></li>
+<li><code>Arrays.stream()</code></li>
+</ol>
+<h1 id="Intermediate-Operations"><a href="#Intermediate-Operations" class="headerlink" title="Intermediate Operations"></a>Intermediate Operations</h1><ol>
+<li>.map(…)</li>
+<li>.peek(…), 使用peek()帮助调试</li>
+<li>.skip(…)</li>
+<li>.limit(…)</li>
+<li>.sorted(Comparator.reverseOrder())</li>
+<li>.filter(Predicate)</li>
+<li>.distinct()</li>
+<li>parallel(), 这个重点说一下, 这个是将流中计算机制换为并行计算, 所以最终输出元素的顺序是随机的. 要是再此基础上要得到有序的输出, 需要上如<code>forEachOrdered(...)</code>等的Terminal Operations</li>
+</ol>
+<h1 id="Terminal-Operations"><a href="#Terminal-Operations" class="headerlink" title="Terminal Operations"></a>Terminal Operations</h1><ol>
+<li>.collect(Collector.toList())</li>
+<li>.toArray()</li>
+<li>.forEach()</li>
+<li>.reduce(…), 最终输出的是一个元素. <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Reduce函数功能展示</span></span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.Stream;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IntegerSupplier</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 生成一个100以内的随机数流(建造者模式)</span></span><br><span class="line">	<span class="function"><span class="keyword">static</span> Stream&lt;Integer&gt; <span class="title">supply</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Random rand = <span class="keyword">new</span> Random(<span class="number">15</span>);</span><br><span class="line">		<span class="keyword">final</span> <span class="keyword">int</span> BOUND = <span class="number">100</span>;</span><br><span class="line">		Stream.Builder&lt;Integer&gt; builder = Stream.builder();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">30</span>; i++) &#123;</span><br><span class="line">			builder.add(rand.nextInt(BOUND));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> builder.build();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Reduce</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// reduce(BinaryOperator), BinaryOperator这个函数式接口对应的函数只有两个参数</span></span><br><span class="line">		<span class="comment">// 其中fr0既作为初始化的第一个值, 又作为每次的返回值传入, 在输出中可以看到</span></span><br><span class="line">		<span class="comment">// 最终reduce返回的值, Integer被Optional包裹</span></span><br><span class="line">		IntegerSupplier.supply().reduce((fr0, fr1) -&gt; &#123;</span><br><span class="line">			System.out.println(fr0 + <span class="string">&quot;--compare to--&quot;</span> + fr1);</span><br><span class="line">			<span class="keyword">return</span> fr0 &lt; fr1 ? fr0 : fr1;</span><br><span class="line">		&#125;).ifPresent(System.out::println);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// output:</span></span><br><span class="line"><span class="comment">/* 41--compare to--72</span></span><br><span class="line"><span class="comment"> * 72--compare to--38</span></span><br><span class="line"><span class="comment"> * 72--compare to--67</span></span><br><span class="line"><span class="comment"> * 72--compare to--85</span></span><br><span class="line"><span class="comment"> * 85--compare to--60</span></span><br><span class="line"><span class="comment"> * 85--compare to--59</span></span><br><span class="line"><span class="comment"> * Optional[85]</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Optional类"><a href="#Optional类" class="headerlink" title="Optional类"></a>Optional类</h3><p>为了防止流执行的过程中, 出现”空流”而中断抛出异常, 所以引入了Optional类, 为空时将会返回<code>Optional.empty</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 空流, 等价于: Stream&lt;String&gt; s = Stream.empty();</span></span><br><span class="line">Stream.&lt;String&gt;empty().findFirst()</span><br><span class="line"><span class="comment">// output: Optional.empty</span></span><br></pre></td></tr></table></figure>
+<p>原理是将返回值塞到了Optional对象中, Optional类提供了很多诸如<code>isPresent()</code>, <code>orElse</code>, <code>orElseGet</code>等方法, 在Python3.7以后引入类型系统后也有了Optional类型, 如果一个变量被标识为Optional, 那么这个对象可能为none.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2021/05/28/hexo-build-guide/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/05/28/hexo-build-guide/" class="post-title-link" itemprop="url">使用Hexo构建博客</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-28 14:53:12" itemprop="dateCreated datePublished" datetime="2021-05-28T14:53:12+08:00">2021-05-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>一直以来，使用其他工具来记录技术知识的积累，以后陆续将其转到github上。使用Hexo搭建项目可以自动将文档生成静态HTML等文件，上传到github上，随时通过your-github-name.github.io查看自己的公开静态信息库。</p>
+<h2 id="Github准备操作"><a href="#Github准备操作" class="headerlink" title="Github准备操作"></a>Github准备操作</h2><ol>
+<li>首先在github上创建一个新的repository，其中<code>Repository name</code>为<code>[your-github-name].github.io</code>，设为开源, 用来存放生成的静态文件, 先不创建任何文件和分支.</li>
+<li>在创建一个repository, <code>Repository name</code>最好设为<code>github-bolg</code>(根据个人喜好), 这个项目存放文档以及源码</li>
+<li>将ssh公钥<code>id_ras.pub</code>内容添加到个人信息 &gt; settings &gt; SSH keys</li>
+</ol>
+<h2 id="本地准备操作"><a href="#本地准备操作" class="headerlink" title="本地准备操作"></a>本地准备操作</h2><ol>
+<li><p>安装Node.js (默认安装了npm)</p>
+</li>
+<li><p>npm的配置, 对前端不是很熟, 这里需要记录一下</p>
+<ul>
+<li>在Windows默认的用户目录下, 新建<code>C:\Users\your-user-name\.npmrc</code>文件<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">registry=https://registry.npm.taobao.org</span><br><span class="line">prefix=D:\your-path\nodejs\node_global</span><br><span class="line">cache=D:\your-path\nodejs\node_cache</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>安装<code>npm install -g hexo</code></p>
+</li>
+<li><p>初始化<code>hexo init [your-project-name]</code></p>
+</li>
+<li><p>此时可以进行一步本地启动尝试. 执行三个命令: <code>hexo clean</code>&amp;<code>hexo generate</code>&amp;<code>hexo server</code>, 如果成功访问<code>localhost:4000</code>说明初始化成功</p>
+</li>
+<li><p>进入项目根目录查看</p>
+<ul>
+<li><code>.deploy_git</code>&amp;<code>.github</code>不明其意, 勿动</li>
+<li><code>source/_posts</code>存放源文档, 未来soure中还会加入<code>about</code>, <code>categoryies</code>, <code>tags</code>文件夹, 分别对应了<code>关于</code> , <code>分类</code>, <code>标签</code>页面的源文档. </li>
+<li><code>themes</code>对应主题, 每个主题都会是一个文件夹</li>
+<li><code>_config.yml</code>记录了整个项目的配置, 包括显示的语言, 时区等</li>
+<li><code>package.json</code>&amp;<code>package-lock.json</code>为项目依赖包的记录</li>
+<li><code>public</code>文件夹是生成的静态文件保存的位置, 对应<code>[your-github-name].github.io</code>仓库</li>
+<li><code>node_modules</code>对应依赖包信息</li>
+</ul>
+</li>
+<li><p>整个项目初始化为git项目, 并添加<code>.gitignore</code>文件</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.DS_Store</span><br><span class="line">Thumbs.db</span><br><span class="line">db.json</span><br><span class="line">*.log</span><br><span class="line">node_modules/</span><br><span class="line">public/</span><br><span class="line">.deploy*/</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><blockquote>
+<p>通过此gitignore文件可以看出向<code>[github-blog]</code>repository推送的包括源文档, 主题文件和配置文件</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin [github-bolg repository ssh address]</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">for</span> example: $ git remote add origin git@github.com:the-Rings/github-blog.git</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> github从2020年12月份之后, 不再支持用户名&amp;密码方式推送项目, 所以这里是ssh address, 配合我们之前加入的SSH keys使用</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;something&quot;</span><br><span class="line">git push --set-upstream main</span><br><span class="line"><span class="meta">#</span><span class="bash"> 推送完成</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>配置<code>_config.yml</code>向<code>[your-github-name].github.io</code>仓库推送public下的文件, 这是不需要初始化git仓库, 使用hexo相关工具完成</p>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编辑_config.yml中的deploy选项</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">git@github.com:[your-github-name]/[your-github-name].github.io.git</span> <span class="comment"># 复制仓库的SSH地址</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span> <span class="comment"># 分支默认为main即可</span></span><br></pre></td></tr></table></figure></li>
+<li><p>安装<code>npm install hexo-deployer-git --save</code>, 这个工具来向github推送静态文件</p>
+</li>
+<li><p>通过<code>hexo clean</code>&amp;<code>hexo generate</code>&amp;<code>hexo deploy</code>三个命令组合完成, 实际上每次修改之后都是这一顿操作.</p>
+</li>
+</ol>
+<h2 id="主题等相关配置操作"><a href="#主题等相关配置操作" class="headerlink" title="主题等相关配置操作"></a>主题等相关配置操作</h2><ol>
+<li><p>选用<code>Next</code>主题, 然后对<code>theme/next</code>中的配置文件进行相关设置, 这里参考网友们的答案即可, 主要是对首页、归档、分类、标签、关于进行相关设置和注释放开, 并通过命令增加对应的模块</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo new page categories</span><br><span class="line">hexo new page tags</span><br><span class="line">hexo new page about</span><br></pre></td></tr></table></figure></li>
+<li><p>启用搜索功能, 在项目的根目录下<code>_config.yml</code>找到<code>Extensions</code>, 增加配置, 并执行<code>$ npm install hexo-generator-searchdb --save</code></p>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">search:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">search.xml</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">post</span></span><br><span class="line">  <span class="attr">format:</span> <span class="string">html</span></span><br><span class="line">  <span class="attr">limit:</span> <span class="number">10000</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后, 在主题配置文件<code>theme/next/.config.yml</code>中设置<code>local_search: enable: true</code></li>
+</ul>
+</li>
+<li><p>UML图插件</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-tag-plantuml</span><br></pre></td></tr></table></figure>
+<p> 语法参考: <a target="_blank" rel="noopener" href="https://plantuml.com/zh/class-diagram">https://plantuml.com/zh/class-diagram</a><br> 预览效果: <a target="_blank" rel="noopener" href="https://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000">https://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000</a></p>
+ <img  src=http://www.plantuml.com/plantuml/svg/yyhFp2i0uX85cnfTNGNFlBByvCIIpFmyBg1OQb5QOdAgWXTSJNKjaZ12BKYS2uaBDietjIGZFmMhWUXIOFqOWc1J0ehoAohn68LL7cmUTXcR6ZqzXQ3Kj9pKv9BCibHqUG00></li>
+</ol>
+<h2 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h2><p>下载插件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-renderer-marked --save</span><br></pre></td></tr></table></figure>
+<p>在<code>_config.yml</code>做如下更改</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">  <span class="attr">prependRoot:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">postAsset:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>这样每次<code>hexo new post &quot;xxx&quot;</code>后，就会在<code>_post</code>下生成一个同名文件夹，将图片放在这个同名文件夹中即可，然后在引用图片的地方加上<code>![](image_name.jpeg)</code>即可</p>
+<h2 id="特殊语法"><a href="#特殊语法" class="headerlink" title="特殊语法"></a>特殊语法</h2><ol>
+<li>站内文章链接<a href="#">Post not found: file_name display name</a></li>
+</ol>
+<h2 id="在一台新的机器上克隆项目的流程"><a href="#在一台新的机器上克隆项目的流程" class="headerlink" title="在一台新的机器上克隆项目的流程"></a>在一台新的机器上克隆项目的流程</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git clone your-github-blog-url</span><br><span class="line">cd your-github-blog-root-path</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">set</span> your-node-module-path to PATH</span></span><br><span class="line">npm install -g hexo</span><br><span class="line"><span class="meta">#</span><span class="bash"> 从package-lock.json安装所有包</span></span><br><span class="line">npm ci</span><br><span class="line">hexo clean</span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果出现NEXT主题的logo说明安装成功</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果出现“hexo: 无法加载文件 ******.ps1”的错误，可能要以管理员身份运行cmd，“set-ExecutionPolicy RemoteSigned”</span></span><br></pre></td></tr></table></figure>
+<h4 id="日常操作流程"><a href="#日常操作流程" class="headerlink" title="日常操作流程"></a>日常操作流程</h4><ol>
+<li>写博客<code>hexo new post [new-blog-name]</code>, 在<code>source/_post/</code>下就生成了一个新的博客文件, 可以用其他markdown编辑工具来编写, 比如Typora</li>
+<li>在博客文档的开头可以设置标签和分类</li>
+<li>写完之后, 提交源码<code>git add </code>&amp;<code>git commit</code>&amp;<code>git push</code></li>
+<li>部署发布<code>hexo clean</code>&amp;<code>hexo generate</code>&amp;<code>hexo deploy</code></li>
+</ol>
+<h1 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h1><p>总结一些在部署中的错误解决</p>
+<ol>
+<li>在执行<code>hexo generate</code>中出现错误: <code>Template render error: (unknown path)</code>, 多半是语法错误, 比如, 在使用<code>&#123;% xxx %&#125;</code>时写成了<code>&#123; % xxx %&#125;</code>, 前方多了一个空格.</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2021/05/27/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/05/27/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-27 10:03:18" itemprop="dateCreated datePublished" datetime="2021-05-27T10:03:18+08:00">2021-05-27</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Welcome to <a href="https://the-rings.github.io/">the-Rings</a>! This is your very first post.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+  </nav>
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">The Rings</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

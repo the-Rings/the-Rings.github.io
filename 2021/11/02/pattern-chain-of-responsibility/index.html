@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"the-rings.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="这篇博客需和另一篇将Spring AOP的相结合. 责任链模式用这样一段OnJava8的原文来描述责任链模式 In recursion, one method calls itself over and over until it reaches a termination condition; with Chain of Responsibility, a method calls the sa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="责任链模式">
+<meta property="og:url" content="https://the-rings.github.io/2021/11/02/pattern-chain-of-responsibility/index.html">
+<meta property="og:site_name" content="免逸">
+<meta property="og:description" content="这篇博客需和另一篇将Spring AOP的相结合. 责任链模式用这样一段OnJava8的原文来描述责任链模式 In recursion, one method calls itself over and over until it reaches a termination condition; with Chain of Responsibility, a method calls the sa">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-02T12:31:25.000Z">
+<meta property="article:modified_time" content="2023-02-04T09:14:47.757Z">
+<meta property="article:author" content="The Rings">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://the-rings.github.io/2021/11/02/pattern-chain-of-responsibility/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://the-rings.github.io/2021/11/02/pattern-chain-of-responsibility/","path":"2021/11/02/pattern-chain-of-responsibility/","title":"责任链模式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>责任链模式 | 免逸</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">免逸</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">下一代web开发是什么样的？下一代类报表系统是什么样的？</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">责任链模式</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">The Rings</p>
+  <div class="site-description" itemprop="description">软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2021/11/02/pattern-chain-of-responsibility/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="责任链模式 | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          责任链模式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-11-02 20:31:25" itemprop="dateCreated datePublished" datetime="2021-11-02T20:31:25+08:00">2021-11-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Pattern/" itemprop="url" rel="index"><span itemprop="name">Pattern</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>这篇博客需和另一篇将Spring AOP的相结合.</p>
+<h1 id="责任链模式"><a href="#责任链模式" class="headerlink" title="责任链模式"></a>责任链模式</h1><p>用这样一段OnJava8的原文来描述责任链模式</p>
+<blockquote><p>In recursion, one method calls itself over and over until it reaches a termination condition; with <strong>Chain of Responsibility</strong>, a method calls the same base-class method (with a different implementation) which calls another implementation of the base-class method, etc., until it reaches a termination condition.</p>
+<footer><strong>Bruce Eckel</strong><cite>OnJava8</cite></footer></blockquote>
+
+<p>从中体会到几点: Java中使用递归调用来执行整个链条, 链条是一个List, 这个List中保存着每个子类重写父类的同一个方法, 但是它们实现逻辑不同. </p>
+<p>在Spring AOP中, 对于某个Joinpoint. 要加入一个横切逻辑, 需要定义一个类实现MethodInterceptor, 重写其invoke方法, 在invoke方法体中添加横切逻辑. 其方法体中必须调用<code>invocation.proceed()</code>方法, 不然会造成”短路”. </p>
+<p>有多个MethodInterceptor实现的时候, 要按照逐个执行它们的invoke方法(横切逻辑), 这些匹配到的interceptor, 最终集中到了<code>ReflectiveMethodInvocation.interceptorsAndDynamicMethodMatchers</code>这个List中, 将在<code>proceed()</code>方法中执行. 这里用到了递归, 整体是”责任链模式”</p>
+<p>附上ReflectiveMethodInvocation源码来解释</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Spring&#x27;s implementation of the AOP Alliance</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> org.aopalliance.intercept.MethodInvocation&#125; interface,</span></span><br><span class="line"><span class="comment"> * implementing the extended</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> org.springframework.aop.ProxyMethodInvocation&#125; interface.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;Invokes the target object using reflection. Subclasses can override the</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> #invokeJoinpoint()&#125; method to change this behavior, so this is also</span></span><br><span class="line"><span class="comment"> * a useful base class for more specialized MethodInvocation implementations.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;It is possible to clone an invocation, to invoke &#123;<span class="doctag">@link</span> #proceed()&#125;</span></span><br><span class="line"><span class="comment"> * repeatedly (once per clone), using the &#123;<span class="doctag">@link</span> #invocableClone()&#125; method.</span></span><br><span class="line"><span class="comment"> * It is also possible to attach custom attributes to the invocation,</span></span><br><span class="line"><span class="comment"> * using the &#123;<span class="doctag">@link</span> #setUserAttribute&#125; / &#123;<span class="doctag">@link</span> #getUserAttribute&#125; methods.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;&lt;b&gt;<span class="doctag">NOTE:</span>&lt;/b&gt; This class is considered internal and should not be</span></span><br><span class="line"><span class="comment"> * directly accessed. The sole reason for it being public is compatibility</span></span><br><span class="line"><span class="comment"> * with existing framework integrations (e.g. Pitchfork). For any other</span></span><br><span class="line"><span class="comment"> * purposes, use the &#123;<span class="doctag">@link</span> ProxyMethodInvocation&#125; interface instead.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Rod Johnson</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Juergen Hoeller</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Adrian Colyer</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> #invokeJoinpoint</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> #proceed</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> #invocableClone</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> #setUserAttribute</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> #getUserAttribute</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReflectiveMethodInvocation</span> <span class="keyword">implements</span> <span class="title">ProxyMethodInvocation</span>, <span class="title">Cloneable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">protected</span> <span class="keyword">final</span> Object proxy;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="keyword">protected</span> <span class="keyword">final</span> Object target;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">protected</span> <span class="keyword">final</span> Method method;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">protected</span> Object[] arguments = <span class="keyword">new</span> Object[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Class&lt;?&gt; targetClass;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Lazily initialized map of user-specific attributes for this invocation.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="keyword">private</span> Map&lt;String, Object&gt; userAttributes;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * List of MethodInterceptor and InterceptorAndDynamicMethodMatcher</span></span><br><span class="line"><span class="comment">	 * that need dynamic checks.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">protected</span> <span class="keyword">final</span> List&lt;?&gt; interceptorsAndDynamicMethodMatchers;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Index from 0 of the current interceptor we&#x27;re invoking.</span></span><br><span class="line"><span class="comment">	 * -1 until we invoke: then the current interceptor.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> currentInterceptorIndex = -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Construct a new ReflectiveMethodInvocation with the given arguments.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> proxy the proxy object that the invocation was made on</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> target the target object to invoke</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> method the method to invoke</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> arguments the arguments to invoke the method with</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> targetClass the target class, for MethodMatcher invocations</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> interceptorsAndDynamicMethodMatchers interceptors that should be applied,</span></span><br><span class="line"><span class="comment">	 * along with any InterceptorAndDynamicMethodMatchers that need evaluation at runtime.</span></span><br><span class="line"><span class="comment">	 * MethodMatchers included in this struct must already have been found to have matched</span></span><br><span class="line"><span class="comment">	 * as far as was possibly statically. Passing an array might be about 10% faster,</span></span><br><span class="line"><span class="comment">	 * but would complicate the code. And it would work only for static pointcuts.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="title">ReflectiveMethodInvocation</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">	<span class="keyword">protected</span> ReflectiveMethodInvocation(</span></span></span><br><span class="line"><span class="params"><span class="function">			Object proxy, <span class="meta">@Nullable</span> Object target, Method method, <span class="meta">@Nullable</span> Object[] arguments,</span></span></span><br><span class="line"><span class="params"><span class="function">			<span class="meta">@Nullable</span> Class&lt;?&gt; targetClass, List&lt;Object&gt; interceptorsAndDynamicMethodMatchers)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">this</span>.proxy = proxy;</span><br><span class="line">		<span class="keyword">this</span>.target = target;</span><br><span class="line">		<span class="keyword">this</span>.targetClass = targetClass;</span><br><span class="line">		<span class="comment">// 找到桥接方法，作为最后执行的方法。至于什么是桥接方法，自行百度关键字：bridge method</span></span><br><span class="line">		<span class="comment">// 桥接方法是 JDK 1.5 引入泛型后，为了使Java的泛型方法生成的字节码和 1.5 版本前的字节码相兼容，由编译器自动生成的方法（子类实现父类的泛型方法时会生成桥接方法）</span></span><br><span class="line">		<span class="keyword">this</span>.method = BridgeMethodResolver.findBridgedMethod(method);</span><br><span class="line">		<span class="comment">// 对参数进行适配</span></span><br><span class="line">		<span class="keyword">this</span>.arguments = AopProxyUtils.adaptArgumentsIfNecessary(method, arguments);</span><br><span class="line">		<span class="keyword">this</span>.interceptorsAndDynamicMethodMatchers = interceptorsAndDynamicMethodMatchers;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Object <span class="title">getProxy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.proxy;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Object <span class="title">getThis</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.target;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 此处：getStaticPart返回的就是当前得method</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">final</span> AccessibleObject <span class="title">getStaticPart</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.method;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 注意：这里返回的可能是桥接方法哦</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Method <span class="title">getMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.method;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">final</span> Object[] getArguments() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.arguments;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setArguments</span><span class="params">(Object... arguments)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.arguments = arguments;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 核心在这里</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">proceed</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">		<span class="comment">//	We start with an index of -1 and increment early.</span></span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>.currentInterceptorIndex == <span class="keyword">this</span>.interceptorsAndDynamicMethodMatchers.size() - <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">// 这个方法相当于调用了目标方法</span></span><br><span class="line">			<span class="keyword">return</span> invokeJoinpoint();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取集合中的 MethodInterceptor（并且currentInterceptorIndex + 1）</span></span><br><span class="line">		Object interceptorOrInterceptionAdvice =</span><br><span class="line">				<span class="keyword">this</span>.interceptorsAndDynamicMethodMatchers.get(++<span class="keyword">this</span>.currentInterceptorIndex);</span><br><span class="line">		<span class="keyword">if</span> (interceptorOrInterceptionAdvice <span class="keyword">instanceof</span> InterceptorAndDynamicMethodMatcher) &#123;</span><br><span class="line">			<span class="comment">// Evaluate dynamic method matcher here: static part will already have</span></span><br><span class="line">			<span class="comment">// been evaluated and found to match.</span></span><br><span class="line">			InterceptorAndDynamicMethodMatcher dm =</span><br><span class="line">					(InterceptorAndDynamicMethodMatcher) interceptorOrInterceptionAdvice;</span><br><span class="line">			Class&lt;?&gt; targetClass = (<span class="keyword">this</span>.targetClass != <span class="keyword">null</span> ? <span class="keyword">this</span>.targetClass : <span class="keyword">this</span>.method.getDeclaringClass());</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> (dm.methodMatcher.matches(<span class="keyword">this</span>.method, targetClass, <span class="keyword">this</span>.arguments)) &#123;</span><br><span class="line">                <span class="comment">// 执行封装了横切逻辑的invoke方法</span></span><br><span class="line">                <span class="comment">// 所以在interceptor.invoke方法内部, 必须调用invocation.proceed(), 才能再次恢复递归; 否则, 会发生&quot;短路&quot;. 就无法执行上面的invokeJoinpoint();</span></span><br><span class="line">				<span class="keyword">return</span> dm.interceptor.invoke(<span class="keyword">this</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="comment">// Dynamic matching failed.</span></span><br><span class="line">				<span class="comment">// Skip this interceptor and invoke the next in the chain.</span></span><br><span class="line">				<span class="keyword">return</span> proceed();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">// It&#x27;s an interceptor, so we just invoke it: The pointcut will have</span></span><br><span class="line">			<span class="comment">// been evaluated statically before this object was constructed.</span></span><br><span class="line">			<span class="keyword">return</span> ((MethodInterceptor) interceptorOrInterceptionAdvice).invoke(<span class="keyword">this</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Invoke the joinpoint using reflection.</span></span><br><span class="line"><span class="comment">	 * Subclasses can override this to use custom invocation.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> the return value of the joinpoint</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@throws</span> Throwable if invoking the joinpoint resulted in an exception</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> Object <span class="title">invokeJoinpoint</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="comment">// this.target指的就是被代理的目标对象</span></span><br><span class="line">        <span class="comment">// 最终invokeJoinpointUsingReflection内部执行的就是method.invoke(arguments);也就是说执行了目标对象的Joinpoint</span></span><br><span class="line">		<span class="keyword">return</span> AopUtils.invokeJoinpointUsingReflection(<span class="keyword">this</span>.target, <span class="keyword">this</span>.method, <span class="keyword">this</span>.arguments);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...    </span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>重要的解释信息都在代码的注释中, 这里理清楚它们继承的关系, 可以看出它们是AOP Joinpoint概念实现</p>
+<img  src=http://www.plantuml.com/plantuml/svg/yyhFp2i0uX85cnfTNGNFlBByvCIIpFmyBg1OQb5QOdAgWXTSJNKjaZ12BKYS2uaBDietjIGZFmMhWUXIOFqOWc1J0ehoAohn68LL7cmUTXcR6ZqzXQ3Kj9pKv9BCibHqUG00>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.aopalliance.intercept;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.AccessibleObject;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * This interface represents a generic runtime joinpoint (in the AOP</span></span><br><span class="line"><span class="comment"> * terminology).</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;A runtime joinpoint is an &lt;i&gt;event&lt;/i&gt; that occurs on a static</span></span><br><span class="line"><span class="comment"> * joinpoint (i.e. a location in a the program). For instance, an</span></span><br><span class="line"><span class="comment"> * invocation is the runtime joinpoint on a method (static joinpoint).</span></span><br><span class="line"><span class="comment"> * The static part of a given joinpoint can be generically retrieved</span></span><br><span class="line"><span class="comment"> * using the &#123;<span class="doctag">@link</span> #getStaticPart()&#125; method.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;In the context of an interception framework, a runtime joinpoint</span></span><br><span class="line"><span class="comment"> * is then the reification of an access to an accessible object (a</span></span><br><span class="line"><span class="comment"> * method, a constructor, a field), i.e. the static part of the</span></span><br><span class="line"><span class="comment"> * joinpoint. It is passed to the interceptors that are installed on</span></span><br><span class="line"><span class="comment"> * the static joinpoint.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Rod Johnson</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> Interceptor</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Joinpoint</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Proceed to the next interceptor in the chain.</span></span><br><span class="line"><span class="comment">	 * &lt;p&gt;The implementation and the semantics of this method depends</span></span><br><span class="line"><span class="comment">	 * on the actual joinpoint type (see the children interfaces).</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> see the children interfaces&#x27; proceed definition</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@throws</span> Throwable if the joinpoint throws an exception</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function">Object <span class="title">proceed</span><span class="params">()</span> <span class="keyword">throws</span> Throwable</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Return the object that holds the current joinpoint&#x27;s static part.</span></span><br><span class="line"><span class="comment">	 * &lt;p&gt;For instance, the target object for an invocation.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> the object (can be null if the accessible object is static)</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function">Object <span class="title">getThis</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Return the static part of this joinpoint.</span></span><br><span class="line"><span class="comment">	 * &lt;p&gt;The static part is an accessible object on which a chain of</span></span><br><span class="line"><span class="comment">	 * interceptors are installed.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function">AccessibleObject <span class="title">getStaticPart</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/05/professional-dictionary/" rel="prev" title="专业词汇">
+                  <i class="fa fa-angle-left"></i> 专业词汇
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/11/04/java-anonymous-inner-class/" rel="next" title="Java匿名内部类">
+                  Java匿名内部类 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">The Rings</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

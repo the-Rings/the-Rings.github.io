@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"the-rings.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="编程风格可以分为命令式(Imperative)和声明式(Declarative), 它声明了要做什么, 而不是每一步如何做.这正是我们在函数式编程中所看到的的. 函数是Java支持的一种封装，我们通过把大段代码拆成函数，通过一层一层的函数调用，就可以把复杂任务分解成简单的任务，这种分解可以称之为面向过程的程序设计。函数就是面向过程的程序设计的基本单元。而函数式编程（请注意多了一个“式”字）——Fu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java函数式编程">
+<meta property="og:url" content="https://the-rings.github.io/2021/08/04/java-functional-programming/index.html">
+<meta property="og:site_name" content="免逸">
+<meta property="og:description" content="编程风格可以分为命令式(Imperative)和声明式(Declarative), 它声明了要做什么, 而不是每一步如何做.这正是我们在函数式编程中所看到的的. 函数是Java支持的一种封装，我们通过把大段代码拆成函数，通过一层一层的函数调用，就可以把复杂任务分解成简单的任务，这种分解可以称之为面向过程的程序设计。函数就是面向过程的程序设计的基本单元。而函数式编程（请注意多了一个“式”字）——Fu">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-04T03:10:25.000Z">
+<meta property="article:modified_time" content="2022-09-02T13:50:18.427Z">
+<meta property="article:author" content="The Rings">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://the-rings.github.io/2021/08/04/java-functional-programming/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://the-rings.github.io/2021/08/04/java-functional-programming/","path":"2021/08/04/java-functional-programming/","title":"Java函数式编程"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java函数式编程 | 免逸</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">免逸</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">下一代web开发是什么样的？下一代类报表系统是什么样的？</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">Lambda表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mehtod-References"><span class="nav-number">2.</span> <span class="nav-text">Mehtod References</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Unbound-Method-References"><span class="nav-number">2.1.</span> <span class="nav-text">Unbound Method References</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%BC%95%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">构造函数引用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.</span> <span class="nav-text">函数式接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0"><span class="nav-number">3.1.</span> <span class="nav-text">高阶函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AD%E5%8C%85-Closure"><span class="nav-number">3.2.</span> <span class="nav-text">闭包(Closure)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AD%E5%8C%85%E7%9A%84%E7%BB%93%E8%AE%BA"><span class="nav-number">3.2.0.1.</span> <span class="nav-text">闭包的结论</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">The Rings</p>
+  <div class="site-description" itemprop="description">软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2021/08/04/java-functional-programming/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java函数式编程 | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java函数式编程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-08-04 11:10:25" itemprop="dateCreated datePublished" datetime="2021-08-04T11:10:25+08:00">2021-08-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>编程风格可以分为命令式(Imperative)和声明式(Declarative), 它声明了要做什么, 而不是每一步如何做.<br>这正是我们在函数式编程中所看到的的.</p>
+<p>函数是Java支持的一种封装，我们通过把大段代码拆成函数，通过一层一层的函数调用，就可以把复杂任务分解成简单的任务，这种分解可以称之为面向过程的程序设计。函数就是面向过程的程序设计的基本单元。<br>而函数式编程（请注意多了一个“式”字）——Functional Programming，虽然也可以归结到面向过程的程序设计，但其思想更接近数学计算。<br>我们首先要搞明白计算机（Computer）和计算（Compute）的概念。 在计算机的层次上，CPU执行的是加减乘除的指令代码，以及各种条件判断和跳转指令，所以，汇编语言是最贴近计算机的语言。 而计算则指数学意义上的计算，越是抽象的计算，离计算机硬件越远。<br>对应到编程语言，就是越低级的语言，越贴近计算机，抽象程度低，执行效率高，比如C语言；越高级的语言，越贴近计算，抽象程度高，执行效率低，比如Lisp语言。</p>
+<p>函数式编程就是一种抽象程度很高的编程范式，纯粹的函数式编程语言编写的函数没有变量，因此，任意一个函数，只要输入是确定的，输出就是确定的，这种纯函数我们称之为没有副作用。而允许使用变量的程序设计语言，由于函数内部的变量状态不确定，同样的输入，可能得到不同的输出，因此，这种函数是有副作用的。<br>函数式编程的一个特点就是，允许把函数本身作为参数传入另一个函数，还允许返回一个函数！<br>像Java、Python对函数式编程提供部分支持。由于允许使用变量，因此，他们不是纯函数式编程语言。Haskell是一种纯函数式变成语言。</p>
+<h1 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h1><p>从概念上来说, Lambda表达式, 生产的是函数, 而不是类<br>但是在JVM上, everything is a class, 但是经过各种幕后操作之后, <strong>使得Lambda看起来像函数</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IntCall</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">int</span> <span class="title">call</span><span class="params">(<span class="keyword">int</span> arg)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IntCallImpl</span> <span class="keyword">implements</span> <span class="title">IntCall</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">call</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (arg == <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> arg * call(arg - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FunctionalPrograming</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> IntCall fact;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/** 传统方法实现 */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">oldApproach</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    IntCallImpl intCall = <span class="keyword">new</span> IntCallImpl();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">10</span>; i++) &#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;oldApproach --&gt; &quot;</span> + intCall.call(i));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/** 函数式编程实现 */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">functionalApproach</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 这里使用Lambda表达式的简洁语法, 但是其底层实现仍然是类和对象, IntCallImpl的步骤可能一步也没有少, 只是看起来像生成了一个函数.</span></span><br><span class="line">    fact = n -&gt; n == <span class="number">0</span> ? <span class="number">1</span> : n * fact.call(n - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">10</span>; i++) &#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;functionalApproach --&gt; &quot;</span> + fact.call(i));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">anonymousInnerClassApproach</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    IntCall fact = IntCallImpl::call</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    FunctionalPrograming.oldApproach();</span><br><span class="line">    FunctionalPrograming.functionalApproach();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Mehtod-References"><a href="#Mehtod-References" class="headerlink" title="Mehtod References"></a>Mehtod References</h1><p>方法引用的语法:</p>
+<blockquote><p>A method reference is a class name or an object name, follow by a ::, then the name of the method </p>
+</blockquote>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">X</span> </span>&#123;</span><br><span class="line">   <span class="function">String <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;X::f&quot;</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">MarkString0</span> </span>&#123;</span><br><span class="line">   <span class="function">String <span class="title">make</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">MarkString1</span> </span>&#123;</span><br><span class="line">   <span class="function">String <span class="title">make</span><span class="params">(X x)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UnboundMethodReferences</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      <span class="comment">// MarkString0 n = X::f                             [1]</span></span><br><span class="line">      X x = <span class="keyword">new</span> X();</span><br><span class="line">      MarkString0 n = x::f;   <span class="comment">// method references        [2]</span></span><br><span class="line">      System.out.println(n.make());</span><br><span class="line"></span><br><span class="line">      </span><br><span class="line">      MarkString1 m = X::f;   <span class="comment">//unbound method references [3]</span></span><br><span class="line">      System.out.println(m.make(<span class="keyword">new</span> X()));</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从逻辑上来将, 方法的引用是指向一个Method类的一个实例, 方法对象必须绑定在某个类的对象上. 按照这个逻辑, 所以<code>[2]</code>可以赋值成功, <code>[1]</code>不能. <code>[1]</code>这种方式, <code>class X</code>和<code>interface MarkString0</code>中都没有可以创建<code>X</code>的对象, 没有对象如何调用f()方法呢? 这就引出Unbound Method References</p>
+<h2 id="Unbound-Method-References"><a href="#Unbound-Method-References" class="headerlink" title="Unbound Method References"></a>Unbound Method References</h2><p>对于这种方式(感觉不常用), 我们需要让对应的接口的第一个参数(隐性规定)必须是X. 举一反三, 如下示例:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">This</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">two</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">double</span> d)</span> </span>&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">three</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">double</span> d, String s)</span> </span>&#123;&#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">four</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">double</span> d, String s, <span class="keyword">char</span> c)</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">TwoArgs</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">call2</span><span class="params">(This athis, <span class="keyword">int</span> i, <span class="keyword">double</span> d)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ThreeArgs</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">call3</span><span class="params">(This athis, <span class="keyword">int</span> i, <span class="keyword">double</span> d, String s)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MultiUnbound</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    TwoArgs twoargs = This::two;</span><br><span class="line">    ThreeArgs threeargs = This::three;</span><br><span class="line">    This athis = <span class="keyword">new</span> This();</span><br><span class="line">    twoargs.call2(athis, <span class="number">11</span>, <span class="number">3.14</span>);</span><br><span class="line">    threeargs.call3(athis, <span class="number">11</span>, <span class="number">3.14</span>, <span class="string">&quot;Three&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="构造函数引用"><a href="#构造函数引用" class="headerlink" title="构造函数引用"></a>构造函数引用</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> </span>&#123;</span><br><span class="line">  String name;</span><br><span class="line">  <span class="keyword">int</span> age = -<span class="number">1</span>; <span class="comment">// For &quot;unknown&quot;</span></span><br><span class="line">  Dog() &#123; name = <span class="string">&quot;stray&quot;</span>; &#125;</span><br><span class="line">  Dog(String nm) &#123; name = nm; &#125;</span><br><span class="line">  Dog(String nm, <span class="keyword">int</span> yrs) &#123; name = nm; age = yrs; &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">MakeNoArgs</span> </span>&#123;</span><br><span class="line">  <span class="function">Dog <span class="title">make</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Make1Arg</span> </span>&#123;</span><br><span class="line">  <span class="function">Dog <span class="title">make</span><span class="params">(String nm)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Make2Args</span> </span>&#123;</span><br><span class="line">  <span class="function">Dog <span class="title">make</span><span class="params">(String nm, <span class="keyword">int</span> age)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CtorReference</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    MakeNoArgs mna = Dog::<span class="keyword">new</span>; <span class="comment">// [1]</span></span><br><span class="line">    Make1Arg m1a = Dog::<span class="keyword">new</span>;   <span class="comment">// [2]</span></span><br><span class="line">    Make2Args m2a = Dog::<span class="keyword">new</span>;  <span class="comment">// [3]</span></span><br><span class="line">    Dog dn = mna.make();</span><br><span class="line">    Dog d1 = m1a.make(<span class="string">&quot;Comet&quot;</span>);</span><br><span class="line">    Dog d2 = m2a.make(<span class="string">&quot;Ralph&quot;</span>, <span class="number">4</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Dog 有三个构造函数，函数式接口内的 make() 方法反映了构造函数参数列表（ make() 方法名称可以不同）。</p>
+<p>注意我们如何对 [1]，[2] 和 [3] 中的每一个使用 Dog :: new。 这三个构造函数只有一个相同名称：:: new，但在每种情况下赋值给不同的接口，编译器可以从中知道具体使用哪个构造函数。</p>
+<h1 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h1><p>现在我们讨论本后的本质. Java是强类型语言, 编译器必须得知每个对象的类型信息, 所以method reference和Lambda表达式都必须被赋值. 通过赋值让编译器推测出准确的类型信息. 比如:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x -&gt; x.toString()</span><br></pre></td></tr></table></figure>
+<p>编译器可以轻松地知道返回值肯定是String, 但是x是什么类型呢? Lambda表达式包含类型推导. 再比如:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(x, y) -&gt; x + y</span><br></pre></td></tr></table></figure>
+<p><strong>必须当Lambda表达式被指派给某个接口, 才能确定其类型</strong>. 比如: </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Functional</span> </span>&#123;</span><br><span class="line">  <span class="function">String <span class="title">goodbye</span><span class="params">(String arg)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">FunctionalNoAnn</span> </span>&#123;</span><br><span class="line">  <span class="function">String <span class="title">goodbye</span><span class="params">(String arg)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">@FunctionalInterface</span></span><br><span class="line"><span class="comment">interface NotFunctional &#123;</span></span><br><span class="line"><span class="comment">  String goodbye(String arg);</span></span><br><span class="line"><span class="comment">  String hello(String arg);</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">产生错误信息:</span></span><br><span class="line"><span class="comment">NotFunctional is not a functional interface</span></span><br><span class="line"><span class="comment">multiple non-overriding abstract methods</span></span><br><span class="line"><span class="comment">found in interface NotFunctional</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FunctionalAnnotation</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">goodbye</span><span class="params">(String arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Goodbye, &quot;</span> + arg;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    FunctionalAnnotation fa =</span><br><span class="line">      <span class="keyword">new</span> FunctionalAnnotation();</span><br><span class="line">    Functional f = fa::goodbye;</span><br><span class="line">    FunctionalNoAnn fna = fa::goodbye;</span><br><span class="line">    <span class="comment">// Functional fac = fa; // Incompatible</span></span><br><span class="line">    Functional fl = a -&gt; <span class="string">&quot;Goodbye, &quot;</span> + a;</span><br><span class="line">    FunctionalNoAnn fnal = a -&gt; <span class="string">&quot;Goodbye, &quot;</span> + a;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中, <code>@FunctionalInterface</code>是一个可选注解, 没有也行.<br>通过以上例子我们可以得知, Lambda表达式被指派的接口只能有一个抽象方法对应. 摘录一段解释</p>
+<blockquote><p>Look closely at what happens in the definitions of <code>f</code> and <code>fna</code>. Functional and<br>FunctionalNoAnn define interfaces. Yet what is assigned is just the method goodbye.<br>First, this is only a method and not a class. Second, it’s not even a method of a class<br>that implements one of those interfaces. This is a bit of magic that was added to Java<br>8: if you assign a method reference or a lambda expression to a functional interface<br>(and the types fit), Java will adapt your assignment to the target interface. <strong>Under<br>the covers, the compiler wraps your method reference or lambda expression in an<br>instance of a class that implements the target interface.</strong></p>
+<p>A @FunctionalInterface is also called a Single Abstract Method (SAM) type.</p>
+<footer><strong>Bruce Eckel</strong><cite>OnJava8</cite></footer></blockquote>
+
+
+<p>如果将Lambda表达式作为参数传入, 看流式编程中, <code>Stream.of(...).map((x, y) -&gt; x + y))</code>, 其中map方法接收了一个表达式. 查看其源码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;R&gt; <span class="function">Stream&lt;R&gt; <span class="title">map</span><span class="params">(Function&lt;? <span class="keyword">super</span> T, ? extends R&gt; mapper)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>然后, 再查看Function接口:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> java.util.function;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Objects;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Represents a function that accepts one argument and produces a result.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;This is a &lt;a href=&quot;package-summary.html&quot;&gt;functional interface&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> * whose functional method is &#123;<span class="doctag">@link</span> #apply(Object)&#125;.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &lt;T&gt; the type of the input to the function  方法输入的类型</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &lt;R&gt; the type of the result of the function 方法输出的类型</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 1.8</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Function</span>&lt;<span class="title">T</span>, <span class="title">R</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Applies this function to the given argument.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> t the function argument</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the function result</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">R <span class="title">apply</span><span class="params">(T t)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由Function也可以看出其中只有一个抽象方法<code>apply</code>, 那么这个肯定与Lambda表达式的格式对应. 方法的输入和输出分别由泛型<code>&lt;T, R&gt; </code>与之对应.</p>
+<p>那么@FunctionalInterface的意义是什么, 在源码注释中解释很清楚:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> java.lang;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * An informative annotation type used to indicate that an interface</span></span><br><span class="line"><span class="comment"> * type declaration is intended to be a &lt;i&gt;functional interface&lt;/i&gt; as</span></span><br><span class="line"><span class="comment"> * defined by the Java Language Specification.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Conceptually, a functional interface has exactly one abstract</span></span><br><span class="line"><span class="comment"> * method.  Since &#123;<span class="doctag">@linkplain</span> java.lang.reflect.Method#isDefault()</span></span><br><span class="line"><span class="comment"> * default methods&#125; have an implementation, they are not abstract.  If</span></span><br><span class="line"><span class="comment"> * an interface declares an abstract method overriding one of the</span></span><br><span class="line"><span class="comment"> * public methods of &#123;<span class="doctag">@code</span> java.lang.Object&#125;, that also does</span></span><br><span class="line"><span class="comment"> * &lt;em&gt;not&lt;/em&gt; count toward the interface&#x27;s abstract method count</span></span><br><span class="line"><span class="comment"> * since any implementation of the interface will have an</span></span><br><span class="line"><span class="comment"> * implementation from &#123;<span class="doctag">@code</span> java.lang.Object&#125; or elsewhere.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;Note that instances of functional interfaces can be created with</span></span><br><span class="line"><span class="comment"> * lambda expressions, method references, or constructor references.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;If a type is annotated with this annotation type, compilers are</span></span><br><span class="line"><span class="comment"> * required to generate an error message unless:</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;ul&gt;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt; The type is an interface type and not an annotation type, enum, or class.</span></span><br><span class="line"><span class="comment"> * &lt;li&gt; The annotated type satisfies the requirements of a functional interface.</span></span><br><span class="line"><span class="comment"> * &lt;/ul&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;However, the compiler will treat any interface meeting the</span></span><br><span class="line"><span class="comment"> * definition of a functional interface as a functional interface</span></span><br><span class="line"><span class="comment"> * regardless of whether or not a &#123;<span class="doctag">@code</span> FunctionalInterface&#125;</span></span><br><span class="line"><span class="comment"> * annotation is present on the interface declaration.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@jls</span> 4.3.2. The Class Object</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@jls</span> 9.8 Functional Interfaces</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@jls</span> 9.4.3 Interface Method Body</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 1.8</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> FunctionalInterface &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@FunctionalInterface</code>是为了检测, 以限制所注释的接口中只能有一个抽象方法.</p>
+<p>在<code>java.util.function</code>中还有很多函数式接口, 这里就不在列举了.</p>
+<h2 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h2><p>其实就是生成函数的函数, 比如返回一个Lambda表达式.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Function&lt;String, String&gt; <span class="title">a</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> s -&gt; s.toLowerCase();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="闭包-Closure"><a href="#闭包-Closure" class="headerlink" title="闭包(Closure)"></a>闭包(Closure)</h2><p>一般情况下, 函数执行完成后, 其内部定义的局部变量, 将会被垃圾回收. 如果有一个函数使用函数作用域之外的变量, 并将此函数返回, 这些变量将会在函数中继续存在, 即使母函数已经执行完毕.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.function.IntSupplier;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Closure2</span> </span>&#123;</span><br><span class="line">  <span class="function">IntSupplier <span class="title">makeFun</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> () -&gt; x + i;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>makeFun方法返回的IntSupplier将i和x进行了”close over”, 即使makeFun执行完毕, x和i仍然有效, 一般情况下, 它们就被回收了.</p>
+<p>此时, 考虑如下情况:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.function.IntSupplier;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Closure3</span> </span>&#123;</span><br><span class="line">  <span class="function">IntSupplier <span class="title">makeFun</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 在编译时, x++ 和 i++ 都会报错</span></span><br><span class="line">    <span class="keyword">return</span> () -&gt; x++ + i++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>Variable used in lambda expression should be final or effectively final</em><br>Lambda表达式中引用的局部变量必须是final, 或者等同final. 使用时, final可以省略. </p>
+<p>那么, 为什么呢?<br>考虑在一般情况, 不使用Lambda表达式时, 我们可能会这么写:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.function.IntSupplier;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Closure3</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">makeFun</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    lambda(x, i);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">lambda</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">      x++;</span><br><span class="line">      i++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>x和i传入lambda时, 一定是一个定量, 不可能是一个变量, 这不符合思维逻辑. 只是Lambda表达式给我们一个将函数返回的机会, 早期的Java版本没有这个特性.</p>
+<h4 id="闭包的结论"><a href="#闭包的结论" class="headerlink" title="闭包的结论"></a>闭包的结论</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.function.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Closure1</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">  <span class="function">IntSupplier <span class="title">makeFun</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 一切正常, 因为i是成员, 非局部.</span></span><br><span class="line">    <span class="keyword">return</span> () -&gt; x + i++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Lambda可以无限制的引用成员变量(members), 但是当其引用局部变量(local variable)时, 局部变量必须声明为final.</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>Lambda表达式与Method Reference原理上是一样的, 编译器会解析它们, 之后将它们包裹在一个类中, 这个类实现了目标接口. 所以, 当我们去书写Lambda表达式的时候, 编译器也会据此生成代码.</p>
+<p>解释的更加仔细一点, 写了一个例子</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">TargetInterface</span> </span>&#123;</span><br><span class="line">  <span class="function">String <span class="title">apply</span><span class="params">(String str)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tool</span> </span>&#123;</span><br><span class="line">  <span class="function">String <span class="title">connect</span><span class="params">(String data)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> data + <span class="string">&quot;&lt;---&gt;&quot;</span> + data;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MethodReferencesNature</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Tool tool = <span class="keyword">new</span> Tool();</span><br><span class="line">    TargetInterface t = tool::connect;</span><br><span class="line">    System.out.println(t.apply(<span class="string">&quot;you&quot;</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以下这个示例反应了运行时生成字节码的伪代码, <code>$Example1</code>在目标接口和类之间搭建了一个桥梁</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 示例: 自动生成的类 */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> $<span class="title">Example1</span> <span class="keyword">implements</span> <span class="title">TargetInterface</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Tool tool;</span><br><span class="line">  $Example1(Tool tool) &#123;</span><br><span class="line">    <span class="keyword">this</span>.tool = tool;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">apply</span><span class="params">(String data)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> tool.connect(data);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 与Method Reference是一样的(省略main方法声明)</span></span><br><span class="line">$Example1 example1 = <span class="keyword">new</span> $Example1(<span class="keyword">new</span> Tool());</span><br><span class="line">example1.apply(<span class="string">&quot;you&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>那么Lambda表达式, 就更进一步. 首先表达式是一个函数, 函数必须属于某个类. 所以, 生成的字节码时<code>Tool</code>类和<code>$Example1</code>都生成了, 所以Lambda和Method References是本质是一样的.</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/01/pattern-proxy-and-dynamic/" rel="prev" title="Java动态代理">
+                  <i class="fa fa-angle-left"></i> Java动态代理
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/08/12/java-reflection/" rel="next" title="Java反射">
+                  Java反射 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">The Rings</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

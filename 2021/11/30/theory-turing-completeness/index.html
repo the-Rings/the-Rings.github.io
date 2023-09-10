@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"the-rings.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="这是一篇旨在帮助理解图灵完备及相关概念是什么，而非证明其正确性的回答，它包含以下内容：什么是图灵机图灵机可以解决什么问题什么是图灵完备直观理解图灵完备——Brainfuck语言 什么是图灵机图灵机（Turing Machine）是图灵在1936年发表的 “On Computable Numbers, with an Application to the Entscheidungsproblem”（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图灵完备">
+<meta property="og:url" content="https://the-rings.github.io/2021/11/30/theory-turing-completeness/index.html">
+<meta property="og:site_name" content="免逸">
+<meta property="og:description" content="这是一篇旨在帮助理解图灵完备及相关概念是什么，而非证明其正确性的回答，它包含以下内容：什么是图灵机图灵机可以解决什么问题什么是图灵完备直观理解图灵完备——Brainfuck语言 什么是图灵机图灵机（Turing Machine）是图灵在1936年发表的 “On Computable Numbers, with an Application to the Entscheidungsproblem”（">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-30T06:49:19.000Z">
+<meta property="article:modified_time" content="2022-09-02T13:50:18.442Z">
+<meta property="article:author" content="The Rings">
+<meta property="article:tag" content="Turing">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://the-rings.github.io/2021/11/30/theory-turing-completeness/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://the-rings.github.io/2021/11/30/theory-turing-completeness/","path":"2021/11/30/theory-turing-completeness/","title":"图灵完备"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>图灵完备 | 免逸</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">免逸</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">下一代web开发是什么样的？下一代类报表系统是什么样的？</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%BE%E7%81%B5%E6%9C%BA"><span class="nav-number">1.</span> <span class="nav-text">什么是图灵机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%BE%E7%81%B5%E6%9C%BA%E5%8F%AF%E4%BB%A5%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">图灵机可以解决什么问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%BE%E7%81%B5%E5%AE%8C%E5%A4%87"><span class="nav-number">3.</span> <span class="nav-text">什么是图灵完备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B4%E8%A7%82%E7%90%86%E8%A7%A3%E5%9B%BE%E7%81%B5%E5%AE%8C%E5%A4%87%E2%80%94%E2%80%94Brainfuck-%E8%AF%AD%E8%A8%80"><span class="nav-number">4.</span> <span class="nav-text">直观理解图灵完备——Brainfuck 语言</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">The Rings</p>
+  <div class="site-description" itemprop="description">软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2021/11/30/theory-turing-completeness/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="图灵完备 | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          图灵完备
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-11-30 14:49:19" itemprop="dateCreated datePublished" datetime="2021-11-30T14:49:19+08:00">2021-11-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">计算机理论</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>这是一篇旨在帮助理解图灵完备及相关概念是什么，而非证明其正确性的回答，它包含以下内容：<br>什么是图灵机图灵机<br>可以解决什么问题<br>什么是图灵完备<br>直观理解图灵完备——Brainfuck语言</p>
+<h1 id="什么是图灵机"><a href="#什么是图灵机" class="headerlink" title="什么是图灵机"></a>什么是图灵机</h1><p>图灵机（Turing Machine）是图灵在1936年发表的 “On Computable Numbers, with an Application to the Entscheidungsproblem”（《论可计算数及其在判定性问题上的应用》）中提出的数学模型。既然是数学模型，它就并非一个实体概念，而是架空的一个想法。在文章中图灵描述了它是什么，并且证明了，只要图灵机可以被实现，就可以用来解决任何可计算问题。</p>
+<p>图灵机的结构包括以下几个部分：一条无限长的纸带（tape），纸带被分成一个个相邻的格子（square），每个格子都可以写上至多一个字符（symbol）。一个字符表（alphabet），即字符的集合，它包含纸带上可能出现的所有字符。其中包含一个特殊的空白字符（blank），意思是此格子没有任何字符。一个读写头（head），可理解为指向其中一个格子的指针。它可以读取/擦除/写入当前格子的内容，此外也可以每次向左/右移动一个格子。一个状态寄存器（state register），它追踪着每一步运算过程中，整个机器所处的状态（运行/终止）。当这个状态从运行变为终止，则运算结束，机器停机并交回控制权。如果你了解有限状态机，它便对应着有限状态机里的状态。一个有限的指令集（instructions table），它记录着读写头在特定情况下应该执行的行为。可以想象读写头随身有一本操作指南，里面记录着很多条类似于“当你身处编号53的格子并看到其内容为0时，擦除，改写为1，并向右移一格。此外，令下一状态为运行。”这样的命令。其实某种意义上，这个指令集就对应着程序员所写下的程序了。</p>
+<p>在计算开始前，纸带可以是完全空白，也可以在某些格子里预先就有写上部分字符作为输入。运算开始时，读写头从某一位置开始，严格按照此刻的配置（configuration），即：</p>
+<ul>
+<li>当前所处位置</li>
+<li>当前格子内容</li>
+</ul>
+<p>来一步步的对照着指令集去进行操作，直到状态变为停止，运算结束。而后纸带上留下的信息，即字符的序列（比如类似“…011001…”）便作为输出，由人来解码为自然语言。</p>
+<p>要重申一下，以上只是图灵机模型的内容，而非具体的实现。所谓的纸带和读写头都只是图灵提出的抽象概念。为便于理解打一个比方。算盘虽然不是图灵机（因为它没有无限长的纸带，即无限的存储空间），但它的行为与图灵机一致。每一串算珠都是纸带上的一格，一串算珠上展示的数字便记录着当前格中的字符（可以是空白，可以是 12345 ）。人类的手即是读写头，可以更改每串算珠的状态。算盘的运行遵循人脑中的算法，当算法结束，算盘停机。</p>
+<h1 id="图灵机可以解决什么问题"><a href="#图灵机可以解决什么问题" class="headerlink" title="图灵机可以解决什么问题"></a>图灵机可以解决什么问题</h1><p>在文章中，图灵所做的事是证明了，假设上述模型里所说的功能都能被以某种形式物理实现，那么任意可计算问题都可以被解决。这里所说的可计算问题，涉及到计算理论（Computation Theory）的概念。这个领域的概念很繁杂，先简单梳理一下。<br>在计算机领域，或者说自动机领域，我们研究的一切问题都是计算问题（Computational Problem）。它泛指一切与计算相关的问题。</p>
+<blockquote>
+<p>A computational problem is a mathematical object representing a collection of questions that computers might be able to solve.</p>
+</blockquote>
+<p>计算问题的一些举例：</p>
+<ul>
+<li>给定一个正整数 n，判断它是否是质数</li>
+<li>给定一个 01 序列，把它们按位取反</li>
+<li>给定一个字符串，判断某个字符是否存在，及查找存在位置</li>
+<li>给定一个逻辑蕴含的命题，求它的逆否命题<br>非计算问题的例子：</li>
+<li>今晚吃什么</li>
+<li>为什么太阳从东边升起</li>
+</ul>
+<p>计算问题有的可以解决，有的不可解决。这就引出了计算问题的可计算性（Computability）。它可以被理解为“是否存在一个算法，能解决在任何输入下的此计算问题”。如上面的问题 1，我们当然可以找到一个算法来解决判断任意正整数 n 是否为质数的问题（比如从2遍历到 n-1，看 n 是否可以整除它）。所以，问题 1 就是可计算的。</p>
+<p>也有一些不可计算的计算问题，比如著名的停机问题（Halting Problem）。它的表述是这样的：给定一段程序的描述和该程序的一个有效输入，运行此程序，那么程序最终是会终止，还是会死循环下去？</p>
+<blockquote>
+<p>Halting Problem: given the description of an arbitrary program and a finite input, decide whether the program finishes running or will run forever. </p>
+</blockquote>
+<p>这个问题很绕人，有点像那个著名的理发师悖论，但它确实是一个计算问题。更具体的，它是一个不可判定问题（Undecidable Problem）。即不存在一个通用算法，可以在任意输入下解决此问题。图灵在文章里很优雅的用反证法推翻了假设“假设有这么一个算法可以解决任何停机问题”，从而证明了这样的算法并不存在。具体证明过程网上的资料非常丰富，我就不再花篇幅了。</p>
+<p>回到这一节的主题。简而言之，对于一个问题，对于任意输入，只要人类可以保证算出结果（不管花多少时间），那么图灵机就可以保证算出结果（不管花多少时间）。</p>
+<h1 id="什么是图灵完备"><a href="#什么是图灵完备" class="headerlink" title="什么是图灵完备"></a>什么是图灵完备</h1><p>图灵完备性（Turing Completeness）是针对一套数据操作规则而言的概念。数据操作规则可以是一门编程语言，也可以是计算机里具体实现了的指令集。当这套规则可以实现图灵机模型里的全部功能时，就称它具有图灵完备性。直白一点说，图灵完备性就是我给你一工具箱的东西，包括无限内存、if/else 控制流、while 循环……那么你现在图灵完备了吗？</p>
+<p>概念本身倒是非常直观，但整件事似乎还是让人云里雾里。我曾经一直不懂的就是为什么图灵给出的那个命题是正确的。换句话说，凭什么有了纸带以及其他的那一套东西，就可以自信解决任意可计算问题呢？尽管我不能通读他的那篇论文里的证明，但是通过一门叫做 Brainfuck 的编程语言，还是可以获得一些直觉。</p>
+<h1 id="直观理解图灵完备——Brainfuck-语言"><a href="#直观理解图灵完备——Brainfuck-语言" class="headerlink" title="直观理解图灵完备——Brainfuck 语言"></a>直观理解图灵完备——Brainfuck 语言</h1><p>如今主流的编程语言（C++，Java，Python，以及等等等等）都是图灵完备的语言。关于语言优劣之争也只是在其封装、优化等方面，以及因为这些区别而产生的“不同语言适用于不同情况”的争执。如果我们回到最底层，就会发现它们可以实现的功能其实完全一样，并且本质上就是一个图灵机。在1993年，Urban Müller 发明了 Brainfuck 语言。这门语言可以说是编程语言界的 helloworld 了——它一共只含有 8 个有效字符，每个有效字符就是一条指令。语言虽然极致轻量，它却是一门图灵完备的编程语言。如果能理解它的工作原理，那么对于理解图灵机是有很大帮助的。</p>
+<blockquote>
+<p>Brainfuck is fully Turing-complete.</p>
+</blockquote>
+<p>先贴上一段 BF 的代码，体验一下它的画风：</p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">++<span class="literal">+</span><span class="literal">+</span><span class="literal">+</span><span class="literal">+</span><span class="literal">+</span><span class="literal">+</span><span class="title">[</span>&gt;++<span class="literal">+</span><span class="literal">+</span><span class="title">[</span>&gt;++&gt;++<span class="literal">+</span>&gt;++<span class="literal">+</span>&gt;<span class="literal">+</span>&lt;&lt;&lt;&lt;<span class="literal">-</span><span class="title">]</span>&gt;<span class="literal">+</span>&gt;<span class="literal">+</span>&gt;<span class="literal">-</span>&gt;&gt;<span class="literal">+</span><span class="title">[</span>&lt;<span class="title">]</span>&lt;<span class="literal">-</span><span class="title">]</span>&gt;&gt;<span class="string">.</span>&gt;--<span class="literal">-</span><span class="string">.</span>++<span class="literal">+</span><span class="literal">+</span><span class="literal">+</span><span class="literal">+</span><span class="literal">+</span><span class="string">.</span><span class="string">.</span>++<span class="literal">+</span><span class="string">.</span>&gt;&gt;<span class="string">.</span>&lt;<span class="literal">-</span><span class="string">.</span>&lt;<span class="string">.</span>++<span class="literal">+</span></span><br><span class="line"><span class="string">.</span>--<span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="string">.</span>--<span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="string">.</span>&gt;&gt;<span class="literal">+</span><span class="string">.</span>&gt;++<span class="string">.</span></span><br></pre></td></tr></table></figure>
+<p>这个程序编译运行后，控制台打印 “Hello World!”。</p>
+<p>BF 的工作机制与图灵机高度一致。首先它存储数据的方式是一个不限长的一维整数数组，里面的数值全部初始化为 0。此外，有一数据指针，每一时刻都指向数组的某一任意元素。指针可以向左/右移动，也可以读取/修改当前值。</p>
+<p>语言里的 8 个有效字符分别是：</p>
+<ul>
+<li><code>&gt;</code> —- 指针向右移动一格</li>
+<li><code>&lt;</code> —- 指针向左移动一格</li>
+<li><code>+</code> —- 使指针当前格数值加一</li>
+<li><code>-</code> —- 使指针当前格数值减一</li>
+<li><code>.</code> —- 把当前格数值按 ASCII 表输出到终端</li>
+<li><code>,</code> —- 从终端接受一 byte 的数据，存储其 ASCII 数值到当前格</li>
+<li><code>[</code> —- 当指针当前值为 0 时，程序跳转至与之对应的 <code>]</code> 之后；否则程序正常执行</li>
+<li><code>]</code> —- 程序跳转回与之对应的 <code>[</code> 处</li>
+</ul>
+<p>有了这些工具，我们可以很快做出一个计算乘法的程序。因为 ASCII 表中 ‘A’ 对应的值为 65，可以使用 5 * 13 算出 65 并输出得到字符 ‘A’。</p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">++<span class="literal">+</span><span class="literal">+</span><span class="literal">+</span></span><br><span class="line"><span class="title">[</span></span><br><span class="line">&gt;++<span class="literal">+</span><span class="literal">+</span><span class="literal">+</span><span class="literal">+</span><span class="literal">+</span><span class="literal">+</span><span class="literal">+</span><span class="literal">+</span><span class="literal">+</span><span class="literal">+</span><span class="literal">+</span></span><br><span class="line">&lt;<span class="literal">-</span></span><br><span class="line"><span class="title">]</span></span><br><span class="line">&gt;<span class="string">.</span></span><br></pre></td></tr></table></figure>
+
+<p>把指针初始处的格子命名为 cell 0，cell 0 右边的那个格子命名为 cell 1。那么第一句将其递增 5 次变为 5。然后，循环执行“右移指针，递增 13 次， 左移指针，递减 1 次”。当 cell 0 的值最终被递减为 0 的时候，循环结束。此时 cell 1 的值执行了 5 次“递增 13 次”的操作，即 65。指针右移至 cell 1，输出此格子，则在终端会看到 ‘A’。</p>
+<p>编译运行上述代码块我写这个例子的目的是演示只用图灵机的模型，就可以确实计算出乘法的结果。那么自然更加复杂的计算也可以被拆解成图灵机操作（尽管可能非常琐碎）。此外，这个语言因为简洁，也是第一次练习写编译器的一个非常好的选择。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Turing/" rel="tag"># Turing</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/11/15/java-arraylist/" rel="prev" title="ArrayList.remove">
+                  <i class="fa fa-angle-left"></i> ArrayList.remove
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/01/16/python-interpreter/" rel="next" title="Python Interpreter">
+                  Python Interpreter <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">The Rings</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

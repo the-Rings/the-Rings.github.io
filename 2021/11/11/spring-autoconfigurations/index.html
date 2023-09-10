@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"the-rings.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在Spring Boot项目流行之前，Spring团队有一款代码生成器就是Spring Roo项目，几分钟就可以构建一个应用，但是现实情况是，大家对此不买账，后来这个项目就永远停留在了2017年。虽然Spring Roo能够帮助生成各种代码和配置，但是总体的代码数量并没有减少。Spring团队的Josh Long一语道破：如果一个东西可以生成出来，那为什么还要生成它呢？ Spring Boot在S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Boot自动装配原理">
+<meta property="og:url" content="https://the-rings.github.io/2021/11/11/spring-autoconfigurations/index.html">
+<meta property="og:site_name" content="免逸">
+<meta property="og:description" content="在Spring Boot项目流行之前，Spring团队有一款代码生成器就是Spring Roo项目，几分钟就可以构建一个应用，但是现实情况是，大家对此不买账，后来这个项目就永远停留在了2017年。虽然Spring Roo能够帮助生成各种代码和配置，但是总体的代码数量并没有减少。Spring团队的Josh Long一语道破：如果一个东西可以生成出来，那为什么还要生成它呢？ Spring Boot在S">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-11-11T14:02:18.000Z">
+<meta property="article:modified_time" content="2023-07-16T12:39:53.310Z">
+<meta property="article:author" content="The Rings">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://the-rings.github.io/2021/11/11/spring-autoconfigurations/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://the-rings.github.io/2021/11/11/spring-autoconfigurations/","path":"2021/11/11/spring-autoconfigurations/","title":"Spring Boot自动装配原理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Spring Boot自动装配原理 | 免逸</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">免逸</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">下一代web开发是什么样的？下一代类报表系统是什么样的？</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D%E6%A0%B8%E5%BF%83%E6%B3%A8%E8%A7%A3-Conditional"><span class="nav-number">1.</span> <span class="nav-text">自动装配核心注解@Conditional</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AutoConfiguration%E6%B5%8B%E8%AF%95"><span class="nav-number">1.1.</span> <span class="nav-text">AutoConfiguration测试</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">The Rings</p>
+  <div class="site-description" itemprop="description">软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2021/11/11/spring-autoconfigurations/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Spring Boot自动装配原理 | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spring Boot自动装配原理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-11-11 22:02:18" itemprop="dateCreated datePublished" datetime="2021-11-11T22:02:18+08:00">2021-11-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>在Spring Boot项目流行之前，Spring团队有一款代码生成器就是Spring Roo项目，几分钟就可以构建一个应用，但是现实情况是，大家对此不买账，后来这个项目就永远停留在了2017年。虽然Spring Roo能够帮助生成各种代码和配置，但是总体的代码数量并没有减少。Spring团队的Josh Long一语道破：如果一个东西可以生成出来，那为什么还要生成它呢？</p>
+<p>Spring Boot在SpringFramework的基础上引入了4个特性，来提高开发效率</p>
+<ul>
+<li>starter dependency</li>
+<li>auto configuration</li>
+<li>actuator</li>
+<li>CLI<br>本次我只谈谈前两项。</li>
+</ul>
+<p>starter dependency(起步依赖)这个名字取得很差，总是让我迷惑，其实应该叫做“依赖分组”。他的目的是要解决依赖管理问题，需要引入什么依赖，版本是什么，互相之间不能有冲突。要解决这个问题根本无需写额外的代码，使用maven就能天然解决，只需要创建一个空项目，然后把同一组依赖(加上版本)放到pom.xml文件中，然后主项目依赖这个空项目即可，等我读懂这些技术以后，我十分失望，因为这是多么的弱智。</p>
+<p>auto configuration(自动配置)，它的目的是省去自己动手配置的一模一样的模板配置。框架猜测你会这么配置，如果配置不是你想要的，你就再手动修改就好了。要想我们的配置要在Spring中生效，配置文件的内容要加载到一个对象中，对应一个@Configuration修饰的类。在Spring项目的根路径下，会被自动扫描到，就会加载到容器中。但是现在，它需要在某些条件下才能向Spring容器注入这个Bean，所以这就是构成了自定义配置项的基础。</p>
+<p>我们以JdbcTemplateAutoConfiguration为例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration(proxyBeanMethods = false)</span></span><br><span class="line"><span class="meta">@ConditionalOnClass(&#123; DataSource.class, JdbcTemplate.class &#125;)</span></span><br><span class="line"><span class="meta">@ConditionOnSingleCandidate(DataSource.class)</span></span><br><span class="line"><span class="meta">@AutoConfigureAfter(DataSourceAutoConfiguration.class)</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties(JdbcProperties.class)</span></span><br><span class="line"><span class="meta">@Import(&#123; JdbcTemplateConfiguration.class, NamedParameterJdbcTemplateConfiguration.class &#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JdbcTemplateAutoConfiguration</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>这个配置类生效的条件是存在DataSource和JdbcTemplate类，且上下文中只能有一个DataSource。此外，这个自动配置需要在DataSourceAutoConfiguration之后再配置（可以用@AutoConfigure、@AutoConfigureAfter和@AutoConfigureOrder来控制配置的顺序）。这个配置类还会同时导入JdbcTemplateConfiguration，NamedParameterJdbcTemplateConfiguration里的配置。</p>
+<p>更直白地说，比如，<code>@ConditionalOnClass(&#123; DataSource.class, JdbcTemplate.class &#125;)</code>的语义其实是，<code>IF EXISTS DataSource.class&amp;JdbcTemplate.class DO...</code></p>
+<p>还有一个很重要的问题，普通配置类需要被扫描到才能生效，可是自动配置类并不在我们项目的扫描路径中，那么我们是如何将它们加载到容器中的呢？</p>
+<p>秘密在于<code>@EnableAutoConfiguration</code>上的<code>@Import(AutoConfigurationImportSelector.class)</code>，其中的AutoConfigurationImportSelector类是ImportSelector的实现，这个接口作用就是根据特定条件决定可以导入哪些配置类。接口中的selectImports()方法返回的就是可以导入的配置的类名(String数组)。</p>
+<p>AutoConfigurationImportSelector通过SpringFactoriesLoader来加载<code>/META-INF/spring.factories</code>里边的配置列表，所用的key是<code>org.springframework.boot.autoconfigure.EnableAutoConfiguration</code>，value是以都好分隔的自动配置类全限定的类名（包含了完整的包名与类名清单）。所以，只要在我们类上增加<code>@SpringBootApplication</code>或者<code>@EnableAutoConfiguration</code>就会自动加载所有的自动配置类。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Auto Configure</span><br><span class="line">org.springframework.boot.autoconfigure.EnableAutoConfiguration=\</span><br><span class="line">org.springframework.boot.autoconfigure.admin.SpringApplicationAdminJmxAutoConfiguration,\</span><br><span class="line">org.springframework.boot.autoconfigure.aop.AopAutoConfiguration,\</span><br><span class="line">org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration,\</span><br><span class="line">org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration,\</span><br><span class="line">// ...</span><br><span class="line">// 100+ more lines</span><br></pre></td></tr></table></figure>
+
+<h1 id="自动装配核心注解-Conditional"><a href="#自动装配核心注解-Conditional" class="headerlink" title="自动装配核心注解@Conditional"></a>自动装配核心注解@Conditional</h1><p>Spring Framework’s @Conditional annotation is the core of Autoconfigurations.<br>@Conditional”系列注解”可以用在@Bean Method, @Components或者其他@Configuration注解上. 它们的作用范围都是<code>@Target(&#123;ElementType.TYPE,ElementType.METHOD&#125;)</code>, 比如@ConditionalOnClass, @ConditionalOnBean, @ConditionalOnMissBean等.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123; ElementType.TYPE, ElementType.METHOD &#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Conditional(OnClassCondition.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> ConditionalOnClass &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * The classes that must be present. Since this annotation is parsed by loading class</span></span><br><span class="line"><span class="comment">	 * bytecode, it is safe to specify classes here that may ultimately not be on the</span></span><br><span class="line"><span class="comment">	 * classpath, only if this annotation is directly on the affected component and</span></span><br><span class="line"><span class="comment">	 * &lt;b&gt;not&lt;/b&gt; if this annotation is used as a composed, meta-annotation. In order to</span></span><br><span class="line"><span class="comment">	 * use this annotation as a meta-annotation, only use the &#123;<span class="doctag">@link</span> #name&#125; attribute.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> the classes that must be present</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	Class&lt;?&gt;[] value() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * The classes names that must be present.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> the class names that must be present.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	String[] name() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这些注解需要@Conditional的加持(注解不支持继承, 只能通过组合的方式), @Conditional有一个”Condition”类的参数, 这个类中必须有一个方法叫matches(继承父类SpringBootCondition得此方法), 并返回一个Boolean值</p>
+<ul>
+<li>True: (Further Evaluate/Register) Create that @Bean, @Component or @Configuration</li>
+<li>False: (Stop Evaluating/Registering) Don’t create that @Bean, @Component or @Configuration<br>关系如下:<img  src=http://www.plantuml.com/plantuml/svg/VOon3i8m34JtV8L7a6X_01Qer0qnm0-On42arAx83I3Wtma25GR0m_bqVhus9iWnwdxTFtHXXiOqH4HJcbshYbRQ9CvvIDrFiltJvJxPkgPlIDJolcClz8OlZifipPAmKiVm1ycZuLuCv0JoppsXkQg18M5pxcKfuC1WwbvcF7MtEm00></li>
+</ul>
+<p>附上Condition接口源码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * A single &#123;<span class="doctag">@code</span> condition&#125; that must be &#123;<span class="doctag">@linkplain</span> #matches matched&#125; in order</span></span><br><span class="line"><span class="comment"> * for a component to be registered.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;Conditions are checked immediately before the bean-definition is due to be</span></span><br><span class="line"><span class="comment"> * registered and are free to veto registration based on any criteria that can</span></span><br><span class="line"><span class="comment"> * be determined at that point.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;Conditions must follow the same restrictions as &#123;<span class="doctag">@link</span> BeanFactoryPostProcessor&#125;</span></span><br><span class="line"><span class="comment"> * and take care to never interact with bean instances. For more fine-grained control</span></span><br><span class="line"><span class="comment"> * of conditions that interact with &#123;<span class="doctag">@code</span> <span class="doctag">@Configuration</span>&#125; beans consider implementing</span></span><br><span class="line"><span class="comment"> * the &#123;<span class="doctag">@link</span> ConfigurationCondition&#125; interface.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Phillip Webb</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 4.0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> ConfigurationCondition</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> Conditional</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span> ConditionContext</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Condition</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Determine if the condition matches.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> context the condition context</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> metadata the metadata of the &#123;<span class="doctag">@link</span> org.springframework.core.type.AnnotationMetadata class&#125;</span></span><br><span class="line"><span class="comment">	 * or &#123;<span class="doctag">@link</span> org.springframework.core.type.MethodMetadata method&#125; being checked</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> &#123;<span class="doctag">@code</span> true&#125; if the condition matches and the component can be registered,</span></span><br><span class="line"><span class="comment">	 * or &#123;<span class="doctag">@code</span> false&#125; to veto the annotated component&#x27;s registration</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">matches</span><span class="params">(ConditionContext context, AnnotatedTypeMetadata metadata)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总结一下其中的逻辑:</p>
+<blockquote><p>In short: Even though an ApplicationContextConfiguration comes with certain @Bean definitions, you as the end-user can still somewhat influence if a bean gets created or not.</p>
+</blockquote>
+<p>即使每个ApplicationContextConfiguration都是来自某个@Bean的定义, 但是你最为最终使用者依然拥有对Bean的创建与否的决定权.</p>
+<h2 id="AutoConfiguration测试"><a href="#AutoConfiguration测试" class="headerlink" title="AutoConfiguration测试"></a>AutoConfiguration测试</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">MyService</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">MyService</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration(proxyBeanMethods = false)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyServiceAutoConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="meta">@ConditionalOnMissingBean</span> <span class="comment">// equivalent to @ConditionalOnMissingBean(MyService.class)</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> MyService <span class="title">myService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// When MyService(bean type) doesn&#x27;t exist, this bean will create.</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MyService(<span class="string">&quot;test123&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试AutoConfiguration需要借助ApplicationContextRunner, ApplicationContextRunner is usually defined as field of the “test class” to gather the base, common configuration.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.example.multimodule.service.auto.MyService;</span><br><span class="line"><span class="keyword">import</span> com.example.multimodule.service.auto.MyServiceAutoConfiguration;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.AutoConfigurations;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.runner.ApplicationContextRunner;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.assertj.core.api.Assertions.assertThat;</span><br><span class="line"></span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestAutoConfiguration</span> </span>&#123;</span><br><span class="line">  <span class="comment">// load MyServiceAutoConfiguration.class</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> ApplicationContextRunner contextRunner =</span><br><span class="line">      <span class="keyword">new</span> ApplicationContextRunner()</span><br><span class="line">          .withConfiguration(AutoConfigurations.of(MyServiceAutoConfiguration.class));</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Configuration(proxyBeanMethods = false)</span></span><br><span class="line">  <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">UserConfiguration</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">MyService <span class="title">myCustomService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="comment">// This bean is always created.</span></span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> MyService(<span class="string">&quot;mine&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Test</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">conditionEffectedTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// @ConditionalOnMissingBean effect</span></span><br><span class="line">    <span class="keyword">this</span>.contextRunner.run(</span><br><span class="line">        (context) -&gt; &#123;</span><br><span class="line">          assertThat(context).getBean(<span class="string">&quot;myService&quot;</span>);</span><br><span class="line">          assertThat(context).hasSingleBean(MyService.class);</span><br><span class="line">          assertThat(context.getBean(MyService.class).getName()).isEqualTo(<span class="string">&quot;test123&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Test</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">conditionNotEffectedTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// @ConditionalOnMissingBean effect</span></span><br><span class="line">    <span class="keyword">this</span>.contextRunner</span><br><span class="line">        .withUserConfiguration(UserConfiguration.class) <span class="comment">// add UserConfiguration into context.</span></span><br><span class="line">        .run(</span><br><span class="line">            (context -&gt; &#123;</span><br><span class="line">              assertThat(context).hasSingleBean(MyService.class);</span><br><span class="line">              assertThat(context)</span><br><span class="line">                  .getBean(<span class="string">&quot;myCustomService&quot;</span>)</span><br><span class="line">                  .isSameAs(context.getBean(MyService.class));</span><br><span class="line">              assertThat(context.getBean(MyService.class).getName()).isEqualTo(<span class="string">&quot;mine&quot;</span>);</span><br><span class="line">            &#125;));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从以上例子中可以看出, 当仅仅ApplicationContext仅仅加载MyServiceAutoConfiguration类时, 注入的Bean是<code>myService</code>, 当MyServiceAutoConfiguration和UserConfiguration都加载是注入的Bean是<code>myCustomService</code>，因为UserConfiguration加载时，注入了MyService类型的Bean，当从中体现出了@ConditionalOnMissingBean的作用（<code>IF NOT EXISTS MyService.class Bean DO ...</code>）</p>
+<p>更多关于Autoconfiguration相关Conditional注解的测试可以查看: <a target="_blank" rel="noopener" href="https://www.baeldung.com/spring-boot-context-runner">https://www.baeldung.com/spring-boot-context-runner</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/11/07/maven-wrapper/" rel="prev" title="Maven Wrapper最佳实践">
+                  <i class="fa fa-angle-left"></i> Maven Wrapper最佳实践
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/11/15/java-arraylist/" rel="next" title="ArrayList.remove">
+                  ArrayList.remove <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">The Rings</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"the-rings.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="反射 (Reflection) 是 Java 的特征之一，它允许运行中的 Java 程序获取自身的信息，并且可以操作类或对象的内部属性。 Reflection enables Java code to discover information about the fields, methods and constructors of loaded classes, and to use refle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java反射">
+<meta property="og:url" content="https://the-rings.github.io/2021/08/12/java-reflection/index.html">
+<meta property="og:site_name" content="免逸">
+<meta property="og:description" content="反射 (Reflection) 是 Java 的特征之一，它允许运行中的 Java 程序获取自身的信息，并且可以操作类或对象的内部属性。 Reflection enables Java code to discover information about the fields, methods and constructors of loaded classes, and to use refle">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-12T09:46:37.000Z">
+<meta property="article:modified_time" content="2023-02-03T13:09:13.548Z">
+<meta property="article:author" content="The Rings">
+<meta property="article:tag" content="Reflection">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://the-rings.github.io/2021/08/12/java-reflection/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://the-rings.github.io/2021/08/12/java-reflection/","path":"2021/08/12/java-reflection/","title":"Java反射"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java反射 | 免逸</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">免逸</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">下一代web开发是什么样的？下一代类报表系统是什么样的？</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%B0%84%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">反射原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%B0%84%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.1.</span> <span class="nav-text">反射创建对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Method-Invoke"><span class="nav-number">1.2.</span> <span class="nav-text">Method Invoke</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">The Rings</p>
+  <div class="site-description" itemprop="description">软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2021/08/12/java-reflection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java反射 | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java反射
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-08-12 17:46:37" itemprop="dateCreated datePublished" datetime="2021-08-12T17:46:37+08:00">2021-08-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>反射 (Reflection) 是 Java 的特征之一，它允许运行中的 Java 程序获取自身的信息，并且可以操作类或对象的内部属性。</p>
+<blockquote><p>Reflection enables Java code to discover information about the fields, methods and constructors of loaded classes, and to use reflected fields, methods, and constructors to operate on their underlying counterparts, within security restrictions.<br>The API accommodates applications that need access to either the public members of a target object (based on its runtime class) or the members declared by a given class. It also allows programs to suppress default reflective access control.</p>
+<footer><strong>Oracle</strong></footer></blockquote>
+
+
+<h1 id="反射原理"><a href="#反射原理" class="headerlink" title="反射原理"></a>反射原理</h1><p>简言之，反射是为了在运行时获得程序中类的属性和方法等信息。在Java中程序中的类在编译时期就确定下来了，反射机制可以动态创建对象并调用其members. Python对象的类型在编译时是未知的，在运行时才知道运行的对象是谁。</p>
+<p>反射应用的三种形式，总结起来分别是：</p>
+<ol>
+<li>运行时得到类的信息</li>
+<li>类型转换</li>
+<li>instanceof</li>
+</ol>
+<p>Java中使用反射遵循以下流程。java.lang.reflect包中有Field, Method和Constructor（它们都继承AccessibleObject，实现了Member接口），在运行时JVM为类创建Field，Method和Constructor等的对象。你可以使用Constructor创建新对象，使用某个特定的Method对象调用invoke方法，或者使用Class.forName（当你没有对象的时候，你可以使用Class.forName得到类，当你拥有对象的时候，你可以通过该对象调用getClass方法，他们的结果是等价的），getSuperClass，getFields，getMethods，getConstructors来得到这些Member对象的数组。</p>
+<p>以上一直在强调“动态”，但是归根结底Java仍然是一门静态语言，与Python才是真动态，在Java里所有的类在编译时期就已经完全确定了，不会再增加新的类，但是Python不一样，在运行时才知道某个类的存在，可以在运行时往类中增加额外的属性，不像Java要使用什么必须先声明出来。</p>
+<p>很多人都认为反射在实际的 Java 开发应用中并不广泛，其实不然。当我们在使用 IDE(如 Eclipse，IDEA)时，当我们输入一个对象或类并想调用它的属性或方法时，一按点号，编译器就会自动列出它的属性或方法，这里就会用到反射。</p>
+<p>反射最重要的用途就是开发各种通用框架。很多框架（比如 Spring）都是配置化的（比如通过 XML 文件配置 Bean），为了保证框架的通用性，它们可能需要根据配置文件加载不同的对象或类，调用不同的方法，这个时候就必须用到反射，运行时动态加载需要加载的对象。</p>
+<h2 id="反射创建对象"><a href="#反射创建对象" class="headerlink" title="反射创建对象"></a>反射创建对象</h2><p>Java创建对象有两种方式，一个是new，一个是反射<br>反射创建对象，第一步是获取Class，第二步获取构造器，第三步构造器newInstance()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(<span class="string">&quot;xxx.xxx&quot;</span>);</span><br><span class="line">Constructor ctor = class.getConstructor();</span><br><span class="line">clazz obj = ctor.newInstance();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：其中获取到Class有三种方式：</p>
+<ul>
+<li>Class.forName(“xxx.xxx”)</li>
+<li>对象.getClass</li>
+<li>类.Class<br>这三种方式没有性能区别<br><code>Class.forName(...).getContructor()</code>只能获取到<code>Member.PUBLIC</code>的构造方法, 一个类如果不声明任何构造方法就会由一个默认的构造方法, 如果这个类是<code>Member.PUBLIC</code>那么默认的构造方法也是, 如果这个类是包访问权限, 那么默认构造器也是包访问权限啊</li>
+</ul>
+</blockquote>
+<h2 id="Method-Invoke"><a href="#Method-Invoke" class="headerlink" title="Method Invoke"></a>Method Invoke</h2><p>在实际应用中, 经常会用到method.invoke, 比如在动态代理中, 附上其源码来分析一下: </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Invokes the underlying method represented by this &#123;<span class="doctag">@code</span> Method&#125;</span></span><br><span class="line"><span class="comment"> * object, on the specified object with the specified parameters.</span></span><br><span class="line"><span class="comment"> * Individual parameters are automatically unwrapped to match</span></span><br><span class="line"><span class="comment"> * primitive formal parameters, and both primitive and reference</span></span><br><span class="line"><span class="comment"> * parameters are subject to method invocation conversions as</span></span><br><span class="line"><span class="comment"> * necessary.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;If the underlying method is static, then the specified &#123;<span class="doctag">@code</span> obj&#125;</span></span><br><span class="line"><span class="comment"> * argument is ignored. It may be null.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;If the number of formal parameters required by the underlying method is</span></span><br><span class="line"><span class="comment"> * 0, the supplied &#123;<span class="doctag">@code</span> args&#125; array may be of length 0 or null.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;If the underlying method is an instance method, it is invoked</span></span><br><span class="line"><span class="comment"> * using dynamic method lookup as documented in The Java Language</span></span><br><span class="line"><span class="comment"> * Specification, Second Edition, section 15.12.4.4; in particular,</span></span><br><span class="line"><span class="comment"> * overriding based on the runtime type of the target object will occur.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;If the underlying method is static, the class that declared</span></span><br><span class="line"><span class="comment"> * the method is initialized if it has not already been initialized.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;If the method completes normally, the value it returns is</span></span><br><span class="line"><span class="comment"> * returned to the caller of invoke; if the value has a primitive</span></span><br><span class="line"><span class="comment"> * type, it is first appropriately wrapped in an object. However,</span></span><br><span class="line"><span class="comment"> * if the value has the type of an array of a primitive type, the</span></span><br><span class="line"><span class="comment"> * elements of the array are &lt;i&gt;not&lt;/i&gt; wrapped in objects; in</span></span><br><span class="line"><span class="comment"> * other words, an array of primitive type is returned.  If the</span></span><br><span class="line"><span class="comment"> * underlying method return type is void, the invocation returns</span></span><br><span class="line"><span class="comment"> * null.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> obj  the object the underlying method is invoked from</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> args the arguments used for the method call</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the result of dispatching the method represented by</span></span><br><span class="line"><span class="comment"> * this object on &#123;<span class="doctag">@code</span> obj&#125; with parameters</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> args&#125;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@exception</span> IllegalAccessException    if this &#123;<span class="doctag">@code</span> Method&#125; object</span></span><br><span class="line"><span class="comment"> *              is enforcing Java language access control and the underlying</span></span><br><span class="line"><span class="comment"> *              method is inaccessible.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@exception</span> IllegalArgumentException  if the method is an</span></span><br><span class="line"><span class="comment"> *              instance method and the specified object argument</span></span><br><span class="line"><span class="comment"> *              is not an instance of the class or interface</span></span><br><span class="line"><span class="comment"> *              declaring the underlying method (or of a subclass</span></span><br><span class="line"><span class="comment"> *              or implementor thereof); if the number of actual</span></span><br><span class="line"><span class="comment"> *              and formal parameters differ; if an unwrapping</span></span><br><span class="line"><span class="comment"> *              conversion for primitive arguments fails; or if,</span></span><br><span class="line"><span class="comment"> *              after possible unwrapping, a parameter value</span></span><br><span class="line"><span class="comment"> *              cannot be converted to the corresponding formal</span></span><br><span class="line"><span class="comment"> *              parameter type by a method invocation conversion.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@exception</span> InvocationTargetException if the underlying method</span></span><br><span class="line"><span class="comment"> *              throws an exception.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@exception</span> NullPointerException      if the specified object is null</span></span><br><span class="line"><span class="comment"> *              and the method is an instance method.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@exception</span> ExceptionInInitializerError if the initialization</span></span><br><span class="line"><span class="comment"> * provoked by this method fails.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@CallerSensitive</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object obj, Object... args)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">throws</span> IllegalAccessException, IllegalArgumentException,</span></span><br><span class="line"><span class="function">       InvocationTargetException</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!override) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!Reflection.quickCheckMemberAccess(clazz, modifiers)) &#123;</span><br><span class="line">            Class&lt;?&gt; caller = Reflection.getCallerClass();</span><br><span class="line">            checkAccess(caller, clazz, obj, modifiers);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    MethodAccessor ma = methodAccessor;             <span class="comment">// read volatile</span></span><br><span class="line">    <span class="keyword">if</span> (ma == <span class="keyword">null</span>) &#123;</span><br><span class="line">        ma = acquireMethodAccessor();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ma.invoke(obj, args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上源码中, 首先进行了权限检查，接着调用了methodAccessor的invoke方法，其中methodAccessor是一个共享的变量(volatile)。Reflection.getCallerClass()方法是一个native修饰的方法，native表示该方法的实现由C/C++来编写，放在本地的共享库中。</p>
+<p>MethodAccessor是一个接口, 最终通过NativeMethodAccessorImpl来实现invoke, 然后调用native方法invoke0:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NativeMethodAccessorImpl</span> <span class="keyword">extends</span> <span class="title">MethodAccessorImpl</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Method method;</span><br><span class="line">    <span class="keyword">private</span> DelegatingMethodAccessorImpl parent;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> numInvocations;</span><br><span class="line"></span><br><span class="line">    NativeMethodAccessorImpl(Method var1) &#123;</span><br><span class="line">        <span class="keyword">this</span>.method = var1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object var1, Object[] var2)</span> <span class="keyword">throws</span> IllegalArgumentException, InvocationTargetException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (++<span class="keyword">this</span>.numInvocations &gt; ReflectionFactory.inflationThreshold() &amp;&amp; !ReflectUtil.isVMAnonymousClass(<span class="keyword">this</span>.method.getDeclaringClass())) &#123;</span><br><span class="line">            MethodAccessorImpl var3 = (MethodAccessorImpl)(<span class="keyword">new</span> MethodAccessorGenerator()).generateMethod(<span class="keyword">this</span>.method.getDeclaringClass(), <span class="keyword">this</span>.method.getName(), <span class="keyword">this</span>.method.getParameterTypes(), <span class="keyword">this</span>.method.getReturnType(), <span class="keyword">this</span>.method.getExceptionTypes(), <span class="keyword">this</span>.method.getModifiers());</span><br><span class="line">            <span class="keyword">this</span>.parent.setDelegate(var3);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> invoke0(<span class="keyword">this</span>.method, var1, var2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setParent</span><span class="params">(DelegatingMethodAccessorImpl var1)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.parent = var1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">native</span> Object <span class="title">invoke0</span><span class="params">(Method var0, Object var1, Object[] var2)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Reflection/" rel="tag"># Reflection</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/04/java-functional-programming/" rel="prev" title="Java函数式编程">
+                  <i class="fa fa-angle-left"></i> Java函数式编程
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/08/22/serialization-deserialization/" rel="next" title="序列化和反序列化">
+                  序列化和反序列化 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">The Rings</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

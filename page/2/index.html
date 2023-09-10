@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"the-rings.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+<meta property="og:type" content="website">
+<meta property="og:title" content="免逸">
+<meta property="og:url" content="https://the-rings.github.io/page/2/index.html">
+<meta property="og:site_name" content="免逸">
+<meta property="og:description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="The Rings">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://the-rings.github.io/page/2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/2/index.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>免逸</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">免逸</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">下一代web开发是什么样的？下一代类报表系统是什么样的？</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">The Rings</p>
+  <div class="site-description" itemprop="description">软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2023/04/16/young-confusion/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/04/16/young-confusion/" class="post-title-link" itemprop="url">青年人，请珍惜你们的迷惘</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-04-16 16:42:42" itemprop="dateCreated datePublished" datetime="2023-04-16T16:42:42+08:00">2023-04-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Thought/" itemprop="url" rel="index"><span itemprop="name">Thought</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>人一辈子，最难忘的其实只有两个阶段，一个是童年，一个是青春期。对于大多数人来说，其他的时光简直就像嚼过了的甘蔗渣，淡而无味，而且一年一年地越过越觉得过得快。所以历来就有人认为，青年时代以后的日子都不必过了。</p>
+<p>马其顿的亚历山大大帝于33岁时死于征战途中，被黑格尔称为“一幅最美的景象”，因为 “要使他永远以一个青年出现于后世人眼前，他就不得不在年纪轻轻的时候早死”。</p>
+<p>我国“五四”时期的“新青年”则有人提出，人过40都该杀。这都是当一个社会处于青年时代所流行的议论，生于这样一个时代的年轻人是最幸运的，因为只有他们最有作为。</p>
+<p>但一个社会不可能永远处于青春期，而是要么走向成熟，要么迅速老化。所以，在人类历史上的大部分时间里，青年人的常态就是处于动摇和迷惘之中，他们常常羡慕前人年纪轻轻就干出了丰功伟绩，震撼了世界，而自己身处一个普遍平庸的时代，不要说没有建功立业的条件和机遇，就连一个站得住脚的理想都失去了。</p>
+<p>不过，尽管今天有不少青年看起来比老年人更老于世故，但青年之所以是青年，正在于他们并不满足于自己和自己时代的现状，在内心中有一番挣扎和探索，想要参透人生的意义。</p>
+<p>青春的迷惘，其实正是对人生意义的迷惘，对自己“从何处来、向何处去”的迷惘。以前看过一本苏联小说叫《你到底要什么》，讲的是苏联“解冻”后的 60年代青年寻欢作乐之余的怅然若失心态。</p>
+<p><strong>记得当时我还在农村当知青，几乎所有同龄人考虑的都是“我将会成为什么”，却极少有人考虑“我到底要什么”。是啊，我将会成为什么自然会成为什么，可是我到底要什么呢？这个问题不搞清，我将成为的那个“什么”很可能是我根本不想“要”的，到那时如果我再明白自己真正要什么，那就晚了。</strong></p>
+<p>当时眼前的确是一片漆黑。这不仅是指对我这种“出身不好”的青年来说，招工和“工农兵推荐”上大学绝无希望，只能打算一辈子务农；而且更重要的是，没有任何人能够给我指一条精神上的出路。现行的一切理论、宣传、口号和指示都成了明显的骗局，我渴望找到一位老师、兄长或父辈，能够在做人和思想方面给我立一个榜样，或提出一些有益的忠告。</p>
+<p>但我最终是绝望了。我终于明白了，除了靠自己，谁也不能帮我。那时，未来在我心中完全是一个未知数，整个国家的命运同样如此。我在迷惘中奋起，在迷惘中读书学习，在迷惘中探求人生的意义和国家的前途。</p>
+<p>经常会有一种空虚感和底气不足的怅惘向我袭来，其中交织着朦胧的战栗、神秘的预感、暗暗的焦虑和莫名其妙的恐慌。但它并没有将我击倒，而是迫使我带着深深的忧郁和伤感，游向知识的大海。</p>
+<p>今天想来，我要感谢青春的迷惘，虽然当时感到自己像掉进了无底的深渊。我怀念自己的青春时代，主要就是怀念这种迷惘的心情。</p>
+<p>的确，正是在40岁上（“不惑”之年或“该杀”之年），我开始不再迷惘了，而代之以一种紧迫感。经历了考研、读研、留校任教的一连串“时来运转”之后，那一年我突然发现，人生苦短，我这一生要做的事恐怕是永远也做不完了，所以要赶紧做，现在就做。</p>
+<p>我放下了一切爱好，一切郊游的机会，除了讲课之外就是埋头于书斋，抓紧一切时间，拼命追赶着某颗遥远的命运之星，经常梦见自己误了火车。<br>我终于知道自己“到底要什么”了：<strong>我要搞清一切真相，历史的真相，社会的真相，人类的真相，人性的真相，最终是自己的真相。</strong>人生中充满了欺骗、自欺和虚伪，我不愿意度过一个虚假的人生。</p>
+<p>当然，完全搞清真相是不可能的，否则人就成上帝了。但我认定人的生命之不同于动物，就在于他有这一点灵明，或者说神性，他类似于上帝。最近十多年来，我的生活过得平静而无纷扰，与我青年时代的动荡不安形成鲜明的对比，所以，从自己的时间感觉上来说，这十几年过得简直就像只有三个月。</p>
+<p>但我感到自豪的是，我没有虚度光阴，我把我的一生都凝聚在我青年时代所选定的一点上了，为此我要再次感谢当年的青春的迷惘。</p>
+<p>每个人的青春都是不同的，他的选择自然也与别人不同，这一点在今天这个多元化的时代更是如此。但很可能，世世代代的奋发有为的年轻人对自己的青春会有共同的或类似的感受，他们所体验到的青春的迷惘并不是特殊的风景，而是人性结构中的一个必要的层次：</p>
+<p>它带给人生以痛苦，但同时也为人生积聚着力量。</p>
+<p>青年时代的迷惘，“是人性结构中一个必要的层次”。</p>
+<p>有迷惘，也有觉醒；有探索，也有前行。</p>
+<p>青年节是为纪念百年之前那个时代里一场浩大的前行和抗争而设立的节日。</p>
+<p>在这个节日，我们纪念一百年前的先贤。</p>
+<p>他们为真理苦苦求索，他们为心中对真理的信念一往无前。</p>
+<p>“<strong>愿中国青年都摆脱冷气，只是向上走，不必听自暴自弃者流的话。</strong>能做事的做事，能发声的发声。有一分热，发一分光，就令萤火一般，也可以在黑暗里发一点光，不必等候炬火。</p>
+<p>此后如竟没有炬火：我便是唯一的光。”</p>
+<p>文/邓晓芒</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2023/02/21/network-websocket/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/02/21/network-websocket/" class="post-title-link" itemprop="url">WebSocket协议</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-02-21 21:40:08" itemprop="dateCreated datePublished" datetime="2023-02-21T21:40:08+08:00">2023-02-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Network/" itemprop="url" rel="index"><span itemprop="name">Network</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h1><p>The <code>WebSocket</code> protocol, described in the specification <a target="_blank" rel="noopener" href="https://datatracker.ietf.org/doc/html/rfc6455">RFC 6455</a>, provides a way to exchange data between browser and server via a persistent connection. The data can be passed in both directions as “packets”, without breaking the connection and the need of additional HTTP-requests.</p>
+<p>WebSocket is especially great for services that require continuous data exchange, e.g. online games, real-time trading systems and so on.</p>
+<h2 id="A-simple-example"><a href="#A-simple-example" class="headerlink" title="A simple example"></a>A simple example</h2><p>To open a websocket connection, we need to create <code>new WebSocket</code> using the special protocol <code>ws</code> in the url:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> socket = <span class="keyword">new</span> WebSocket(<span class="string">&quot;*!*ws*/!*://javascript.info&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>There’s also encrypted <code>wss://</code> protocol. It’s like HTTPS for websockets.</p>
+<figure class="highlight plaintext"><figcaption><span>header</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">The `wss://` protocol is not only encrypted, but also more reliable.</span><br><span class="line"></span><br><span class="line">That&#x27;s because `ws://` data is not encrypted, visible for any intermediary. Old proxy servers do not know about WebSocket, they may see &quot;strange&quot; headers and abort the connection.</span><br><span class="line"></span><br><span class="line">On the other hand, `wss://` is WebSocket over TLS, (same as HTTPS is HTTP over TLS), the transport security layer encrypts the data at the sender and decrypts it at the receiver. So data packets are passed encrypted through proxies. They can&#x27;t see what&#x27;s inside and let them through.</span><br></pre></td></tr></table></figure>
+
+<p>Once the socket is created, we should listen to events on it. There are totally 4 events:</p>
+<ul>
+<li><strong><code>open</code></strong> – connection established,</li>
+<li><strong><code>message</code></strong> – data received,</li>
+<li><strong><code>error</code></strong> – websocket error,</li>
+<li><strong><code>close</code></strong> – connection closed.</li>
+</ul>
+<p>…And if we’d like to send something, then <code>socket.send(data)</code> will do that.</p>
+<p>Here’s an example:</p>
+<figure class="highlight js"><figcaption><span>run</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> socket = <span class="keyword">new</span> WebSocket(<span class="string">&quot;wss://javascript.info/article/websocket/demo/hello&quot;</span>);</span><br><span class="line"></span><br><span class="line">socket.onopen = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">&quot;[open] Connection established&quot;</span>);</span><br><span class="line">  alert(<span class="string">&quot;Sending to server&quot;</span>);</span><br><span class="line">  socket.send(<span class="string">&quot;My name is John&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">socket.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">`[message] Data received from server: <span class="subst">$&#123;event.data&#125;</span>`</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">socket.onclose = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (event.wasClean) &#123;  </span><br><span class="line">    alert(<span class="string">`[close] Connection closed cleanly, code=<span class="subst">$&#123;event.code&#125;</span> reason=<span class="subst">$&#123;event.reason&#125;</span>`</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// e.g. server process killed or network down</span></span><br><span class="line">    <span class="comment">// event.code is usually 1006 in this case</span></span><br><span class="line">    alert(<span class="string">&#x27;[close] Connection died&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">socket.onerror = <span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">`[error]`</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>For demo purposes, there’s a small server <a href="demo/server.js">server.js</a> written in Node.js, for the example above, running. It responds with “Hello from server, John”, then waits 5 seconds and closes the connection.</p>
+<p>So you’ll see events <code>open</code> -&gt; <code>message</code> -&gt; <code>close</code>.</p>
+<p>That’s actually it, we can talk WebSocket already. Quite simple, isn’t it?</p>
+<p>Now let’s talk more in-depth.</p>
+<h2 id="Opening-a-websocket"><a href="#Opening-a-websocket" class="headerlink" title="Opening a websocket"></a>Opening a websocket</h2><p>When <code>new WebSocket(url)</code> is created, it starts connecting immediately.</p>
+<p>During the connection, the browser (using headers) asks the server: “Do you support Websocket?” And if the server replies “yes”, then the talk continues in WebSocket protocol, which is not HTTP at all.</p>
+<p><img src="/websocket-handshake.svg"></p>
+<p>Here’s an example of browser headers for a request made by <code>new WebSocket(&quot;wss://javascript.info/chat&quot;)</code>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GET /chat</span><br><span class="line">Host: javascript.info</span><br><span class="line">Origin: https://javascript.info</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Sec-WebSocket-Key: Iv8io/9s+lYFgZWcXczP8Q==</span><br><span class="line">Sec-WebSocket-Version: 13</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Origin</code> – the origin of the client page, e.g. <code>https://javascript.info</code>. WebSocket objects are cross-origin by nature. There are no special headers or other limitations. Old servers are unable to handle WebSocket anyway, so there are no compatibility issues. But the <code>Origin</code> header is important, as it allows the server to decide whether or not to talk WebSocket with this website.</li>
+<li><code>Connection: Upgrade</code> – signals that the client would like to change the protocol.</li>
+<li><code>Upgrade: websocket</code> – the requested protocol is “websocket”.</li>
+<li><code>Sec-WebSocket-Key</code> – a random browser-generated key, used to ensure that the server supports WebSocket protocol. It’s random to prevent proxies from caching any following communication.</li>
+<li><code>Sec-WebSocket-Version</code> – WebSocket protocol version, 13 is the current one.</li>
+</ul>
+<figure class="highlight plaintext"><figcaption><span>header</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">We can&#x27;t use `XMLHttpRequest` or `fetch` to make this kind of HTTP-request, because JavaScript is not allowed to set these headers.</span><br></pre></td></tr></table></figure>
+
+<p>If the server agrees to switch to WebSocket, it should send code 101 response:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">101 Switching Protocols</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Sec-WebSocket-Accept: hsBlbuDTkk24srzEOTBUlZAlC2g=</span><br></pre></td></tr></table></figure>
+
+<p>Here <code>Sec-WebSocket-Accept</code> is <code>Sec-WebSocket-Key</code>, recoded using a special algorithm. Upon seeing it, the browser understands that the server really does support the WebSocket protocol.</p>
+<p>Afterwards, the data is transferred using the WebSocket protocol, we’ll see its structure (“frames”) soon. And that’s not HTTP at all.</p>
+<h3 id="Extensions-and-subprotocols"><a href="#Extensions-and-subprotocols" class="headerlink" title="Extensions and subprotocols"></a>Extensions and subprotocols</h3><p>There may be additional headers <code>Sec-WebSocket-Extensions</code> and <code>Sec-WebSocket-Protocol</code> that describe extensions and subprotocols.</p>
+<p>For instance:</p>
+<ul>
+<li><p><code>Sec-WebSocket-Extensions: deflate-frame</code> means that the browser supports data compression. An extension is something related to transferring the data, functionality that extends the WebSocket protocol. The header <code>Sec-WebSocket-Extensions</code> is sent automatically by the browser, with the list of all extensions it supports.</p>
+</li>
+<li><p><code>Sec-WebSocket-Protocol: soap, wamp</code> means that we’d like to transfer not just any data, but the data in <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/SOAP">SOAP</a> or WAMP (“The WebSocket Application Messaging Protocol”) protocols. WebSocket subprotocols are registered in the <a target="_blank" rel="noopener" href="https://www.iana.org/assignments/websocket/websocket.xml">IANA catalogue</a>. So, this header describes the data formats that we’re going to use.</p>
+<p>  This optional header is set using the second parameter of <code>new WebSocket</code>. That’s the array of subprotocols, e.g. if we’d like to use SOAP or WAMP:</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> socket = <span class="keyword">new</span> WebSocket(<span class="string">&quot;wss://javascript.info/chat&quot;</span>, [<span class="string">&quot;soap&quot;</span>, <span class="string">&quot;wamp&quot;</span>]);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>The server should respond with a list of protocols and extensions that it agrees to use.</p>
+<p>For example, the request:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET /chat</span><br><span class="line">Host: javascript.info</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Origin: https://javascript.info</span><br><span class="line">Sec-WebSocket-Key: Iv8io/9s+lYFgZWcXczP8Q==</span><br><span class="line">Sec-WebSocket-Version: 13</span><br><span class="line">*!*</span><br><span class="line">Sec-WebSocket-Extensions: deflate-frame</span><br><span class="line">Sec-WebSocket-Protocol: soap, wamp</span><br><span class="line">*/!*</span><br></pre></td></tr></table></figure>
+
+<p>Response:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">101 Switching Protocols</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Sec-WebSocket-Accept: hsBlbuDTkk24srzEOTBUlZAlC2g=</span><br><span class="line">*!*</span><br><span class="line">Sec-WebSocket-Extensions: deflate-frame</span><br><span class="line">Sec-WebSocket-Protocol: soap</span><br><span class="line">*/!*</span><br></pre></td></tr></table></figure>
+
+<p>Here the server responds that it supports the extension “deflate-frame”, and only SOAP of the requested subprotocols.</p>
+<h2 id="Data-transfer"><a href="#Data-transfer" class="headerlink" title="Data transfer"></a>Data transfer</h2><p>WebSocket communication consists of “frames” – data fragments, that can be sent from either side, and can be of several kinds:</p>
+<ul>
+<li>“text frames” – contain text data that parties send to each other.</li>
+<li>“binary data frames” – contain binary data that parties send to each other.</li>
+<li>“ping/pong frames” are used to check the connection, sent from the server, the browser responds to these automatically.</li>
+<li>there’s also “connection close frame” and a few other service frames.</li>
+</ul>
+<p>In the browser, we directly work only with text or binary frames.</p>
+<p><strong>WebSocket <code>.send()</code> method can send either text or binary data.</strong></p>
+<p>A call <code>socket.send(body)</code> allows <code>body</code> in string or a binary format, including <code>Blob</code>, <code>ArrayBuffer</code>, etc. No settings are required: just send it out in any format.</p>
+<p><strong>When we receive the data, text always comes as string. And for binary data, we can choose between <code>Blob</code> and <code>ArrayBuffer</code> formats.</strong></p>
+<p>That’s set by <code>socket.binaryType</code> property, it’s <code>&quot;blob&quot;</code> by default, so binary data comes as <code>Blob</code> objects.</p>
+<p><a href="info:blob">Blob</a> is a high-level binary object, it directly integrates with <code>&lt;a&gt;</code>, <code>&lt;img&gt;</code> and other tags, so that’s a sane default. But for binary processing, to access individual data bytes, we can change it to <code>&quot;arraybuffer&quot;</code>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">socket.binaryType = <span class="string">&quot;arraybuffer&quot;</span>;</span><br><span class="line">socket.onmessage = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// event.data is either a string (if text) or arraybuffer (if binary)</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Rate-limiting"><a href="#Rate-limiting" class="headerlink" title="Rate limiting"></a>Rate limiting</h2><p>Imagine, our app is generating a lot of data to send. But the user has a slow network connection, maybe on a mobile internet, outside of a city.</p>
+<p>We can call <code>socket.send(data)</code> again and again. But the data will be buffered (stored) in memory and sent out only as fast as network speed allows.</p>
+<p>The <code>socket.bufferedAmount</code> property stores how many bytes remain buffered at this moment, waiting to be sent over the network.</p>
+<p>We can examine it to see whether the socket is actually available for transmission.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// every 100ms examine the socket and send more data  </span></span><br><span class="line"><span class="comment">// only if all the existing data was sent out</span></span><br><span class="line"><span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (socket.bufferedAmount == <span class="number">0</span>) &#123;</span><br><span class="line">    socket.send(moreData());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;, <span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Connection-close"><a href="#Connection-close" class="headerlink" title="Connection close"></a>Connection close</h2><p>Normally, when a party wants to close the connection (both browser and server have equal rights), they send a “connection close frame” with a numeric code and a textual reason.</p>
+<p>The method for that is:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socket.close([code], [reason]);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>code</code> is a special WebSocket closing code (optional)</li>
+<li><code>reason</code> is a string that describes the reason of closing (optional)</li>
+</ul>
+<p>Then the other party in the <code>close</code> event handler gets the code and the reason, e.g.:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// closing party:</span></span><br><span class="line">socket.close(<span class="number">1000</span>, <span class="string">&quot;Work complete&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// the other party</span></span><br><span class="line">socket.onclose = <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// event.code === 1000</span></span><br><span class="line">  <span class="comment">// event.reason === &quot;Work complete&quot;</span></span><br><span class="line">  <span class="comment">// event.wasClean === true (clean close)</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>Most common code values:</p>
+<ul>
+<li><code>1000</code> – the default, normal closure (used if no <code>code</code> supplied),</li>
+<li><code>1006</code> – no way to set such code manually, indicates that the connection was lost (no close frame).</li>
+</ul>
+<p>There are other codes like:</p>
+<ul>
+<li><code>1001</code> – the party is going away, e.g. server is shutting down, or a browser leaves the page,</li>
+<li><code>1009</code> – the message is too big to process,</li>
+<li><code>1011</code> – unexpected error on server,</li>
+<li>…and so on.</li>
+</ul>
+<p>The full list can be found in <a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc6455#section-7.4.1">RFC6455, §7.4.1</a>.</p>
+<p>WebSocket codes are somewhat like HTTP codes, but different. In particular, codes lower than <code>1000</code> are reserved, there’ll be an error if we try to set such a code.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in case connection is broken</span></span><br><span class="line">socket.onclose = <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// event.code === 1006</span></span><br><span class="line">  <span class="comment">// event.reason === &quot;&quot;</span></span><br><span class="line">  <span class="comment">// event.wasClean === false (no closing frame)</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Connection-state"><a href="#Connection-state" class="headerlink" title="Connection state"></a>Connection state</h2><p>To get connection state, additionally there’s <code>socket.readyState</code> property with values:</p>
+<ul>
+<li><strong><code>0</code></strong> – “CONNECTING”: the connection has not yet been established,</li>
+<li><strong><code>1</code></strong> – “OPEN”: communicating,</li>
+<li><strong><code>2</code></strong> – “CLOSING”: the connection is closing,</li>
+<li><strong><code>3</code></strong> – “CLOSED”: the connection is closed.</li>
+</ul>
+<h2 id="Chat-example"><a href="#Chat-example" class="headerlink" title="Chat example"></a>Chat example</h2><p>Let’s review a chat example using browser WebSocket API and Node.js WebSocket module <a target="_blank" rel="noopener" href="https://github.com/websockets/ws">https://github.com/websockets/ws</a>. We’ll pay the main attention to the client side, but the server is also simple.</p>
+<p>HTML: we need a <code>&lt;form&gt;</code> to send messages and a <code>&lt;div&gt;</code> for incoming messages:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- message form --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">name</span>=<span class="string">&quot;publish&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;message&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Send&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- div with messages --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;messages&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>From JavaScript we want three things:</p>
+<ol>
+<li>Open the connection.</li>
+<li>On form submission – <code>socket.send(message)</code> for the message.</li>
+<li>On incoming message – append it to <code>div#messages</code>.</li>
+</ol>
+<p>Here’s the code:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> socket = <span class="keyword">new</span> WebSocket(<span class="string">&quot;wss://javascript.info/article/websocket/chat/ws&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// send message from the form</span></span><br><span class="line"><span class="built_in">document</span>.forms.publish.onsubmit = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> outgoingMessage = <span class="built_in">this</span>.message.value;</span><br><span class="line"></span><br><span class="line">  socket.send(outgoingMessage);</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// message received - show the message in div#messages</span></span><br><span class="line">socket.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> message = event.data;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> messageElem = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line">  messageElem.textContent = message;</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">&#x27;messages&#x27;</span>).prepend(messageElem);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Server-side code is a little bit beyond our scope. Here we’ll use Node.js, but you don’t have to. Other platforms also have their means to work with WebSocket.</p>
+<p>The server-side algorithm will be:</p>
+<ol>
+<li>Create <code>clients = new Set()</code> – a set of sockets.</li>
+<li>For each accepted websocket, add it to the set <code>clients.add(socket)</code> and set <code>message</code> event listener to get its messages.</li>
+<li>When a message is received: iterate over clients and send it to everyone.</li>
+<li>When a connection is closed: <code>clients.delete(socket)</code>.</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ws = <span class="keyword">new</span> <span class="built_in">require</span>(<span class="string">&#x27;ws&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> wss = <span class="keyword">new</span> ws.Server(&#123;<span class="attr">noServer</span>: <span class="literal">true</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> clients = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line"></span><br><span class="line">http.createServer(<span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// here we only handle websocket connections</span></span><br><span class="line">  <span class="comment">// in real project we&#x27;d have some other code here to handle non-websocket requests</span></span><br><span class="line">  wss.handleUpgrade(req, req.socket, Buffer.alloc(<span class="number">0</span>), onSocketConnect);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onSocketConnect</span>(<span class="params">ws</span>) </span>&#123;</span><br><span class="line">  clients.add(ws);</span><br><span class="line"></span><br><span class="line">  ws.on(<span class="string">&#x27;message&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">message</span>) </span>&#123;</span><br><span class="line">    message = message.slice(<span class="number">0</span>, <span class="number">50</span>); <span class="comment">// max message length will be 50</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> client <span class="keyword">of</span> clients) &#123;</span><br><span class="line">      client.send(message);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  ws.on(<span class="string">&#x27;close&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    clients.delete(ws);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>Here’s the working example:</p>
+<p>[iframe src=”chat” height=”100” zip]</p>
+<p>You can also download it (upper-right button in the iframe) and run it locally. Just don’t forget to install <a target="_blank" rel="noopener" href="https://nodejs.org/en/">Node.js</a> and <code>npm install ws</code> before running.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>WebSocket is a modern way to have persistent browser-server connections.</p>
+<ul>
+<li>WebSockets don’t have cross-origin limitations.</li>
+<li>They are well-supported in browsers.</li>
+<li>Can send/receive strings and binary data.</li>
+</ul>
+<p>The API is simple.</p>
+<p>Methods:</p>
+<ul>
+<li><code>socket.send(data)</code>,</li>
+<li><code>socket.close([code], [reason])</code>.</li>
+</ul>
+<p>Events:</p>
+<ul>
+<li><code>open</code>,</li>
+<li><code>message</code>,</li>
+<li><code>error</code>,</li>
+<li><code>close</code>.</li>
+</ul>
+<p>WebSocket by itself does not include reconnection, authentication and many other high-level mechanisms. So there are client/server libraries for that, and it’s also possible to implement these capabilities manually.</p>
+<p>Sometimes, to integrate WebSocket into existing projects, people run a WebSocket server in parallel with the main HTTP-server, and they share a single database. Requests to WebSocket use <code>wss://ws.site.com</code>, a subdomain that leads to the WebSocket server, while <code>https://site.com</code> goes to the main HTTP-server.</p>
+<p>Surely, other ways of integration are also possible.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2023/02/21/realtime-dealing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/02/21/realtime-dealing/" class="post-title-link" itemprop="url">实时交易数据</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-02-21 21:40:08" itemprop="dateCreated datePublished" datetime="2023-02-21T21:40:08+08:00">2023-02-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/WebSocket/" itemprop="url" rel="index"><span itemprop="name">WebSocket</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>最近遇到一个查看实时交易数据的问题。数据来自于上游的Kafka，然后在服务端经过些许处理，发送到WebSocket，前端页面实时刷新，这就是整个链路。<br>Kafka像这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> KafkaDealConsumer &#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@KafkaLintener(topic = &quot;$&#123;topic&#125;&quot;, containerFactory = &quot;kafkaListenerFactory&quot;)</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendDealMessage</span><span class="params">(ConsumerRecord&lt;String, String&gt; record)</span> </span>&#123;</span><br><span class="line">		String source = record.value();</span><br><span class="line">		doSendDealMessage(source);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSendDealMessage</span><span class="params">(String source)</span> </span>&#123;</span><br><span class="line">		String message;</span><br><span class="line">		<span class="comment">// </span></span><br><span class="line">		<span class="comment">// handle the record ...</span></span><br><span class="line">		<span class="comment">//</span></span><br><span class="line">		dealWsServer.sendInfoToAll(message);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DealWsServer</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Object lockObj = <span class="keyword">new</span> Object();</span><br><span class="line">	ConcurrentHashMap&lt;String, DealWsServer&gt; webSocketSet = <span class="keyword">new</span> ConcurrentHashMap&lt;&gt;();</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">(WebSocketServer wsServer, String message)</span> </span>&#123;</span><br><span class="line">		wsServer.seesion.getBasicRemote().sendText(message);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@OnOpen</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onOpen</span><span class="params">(<span class="meta">@PathParam(value = &quot;sessionId&quot;)</span> String sessoinId, Session session)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.sessionId = sessionId;</span><br><span class="line">		<span class="keyword">this</span>.session = session;</span><br><span class="line">		webSocketSet.put(seesionId, <span class="keyword">this</span>);</span><br><span class="line">		DealWsServer.onlineCount.getAndIncrement();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@OnMessage</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onMessage</span><span class="params">(String requestMessage)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">boolean</span> inited = <span class="keyword">false</span>;</span><br><span class="line">		<span class="comment">// some codes ...</span></span><br><span class="line">		<span class="comment">// 这里判断是否是初次建立连接，或者发送的是心跳</span></span><br><span class="line">		<span class="comment">// </span></span><br><span class="line">		<span class="keyword">if</span> (!inited) &#123;</span><br><span class="line">			init();</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 如果是前端发送过来的参数信息，那么后端进行查询并返回结果</span></span><br><span class="line">		<span class="keyword">synchronized</span> (lockObj) &#123;</span><br><span class="line">			RequestDto request = JSONObject.parseObject(requestMessage);</span><br><span class="line">			String message;</span><br><span class="line">			<span class="comment">// 处理request并生成message;</span></span><br><span class="line">			sendMessage(<span class="keyword">this</span>, message);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@OnClose</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClose</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		webSocketSet.remove(sessionId);</span><br><span class="line">		DealWsServer.onlineCount.getAndDecrement();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@OnError</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Session sesson, Throwable error)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// ...</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendInfoToAll</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 遍历每一个session</span></span><br><span class="line">		<span class="keyword">for</span> (Map.Entry&lt;String, DealWsServer&gt; entry : webSocketSet.entrySet()) &#123;</span><br><span class="line">			DealWsServer dealWsServer = entry.getValue();</span><br><span class="line">			<span class="keyword">synchronized</span> (dealWsServer.lockObj) &#123;</span><br><span class="line">				sendMessage(wsServer, message);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2023/02/12/spring-ioc-startup/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/02/12/spring-ioc-startup/" class="post-title-link" itemprop="url">IOC容器的启动过程</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-02-12 19:58:37" itemprop="dateCreated datePublished" datetime="2023-02-12T19:58:37+08:00">2023-02-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Spring/IoC/" itemprop="url" rel="index"><span itemprop="name">IoC</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="/2023/02/12/spring-ioc-startup/SpringIOC-1.png" alt="IOC启动流程图"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2023/02/11/spring-ant-path-matcher/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/02/11/spring-ant-path-matcher/" class="post-title-link" itemprop="url">Spring AntPathMatcher</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-02-11 17:56:55" itemprop="dateCreated datePublished" datetime="2023-02-11T17:56:55+08:00">2023-02-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="Ant-sytle"><a href="#Ant-sytle" class="headerlink" title="Ant-sytle"></a>Ant-sytle</h3><p>实例化<code>PathMatchingResourcePatternResolver</code>是SpringIOC容器在启动过程中的一个小步骤。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PathMatchingResourcePatternResolver</span> <span class="keyword">implements</span> <span class="title">ResourcePatternResolver</span> </span>&#123;</span><br><span class="line">	<span class="comment">// some code ...</span></span><br><span class="line">	<span class="keyword">private</span> PathMatcher pathMatcher = <span class="keyword">new</span> AntPathMatcher();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的<code>AntPathMatcher</code>是借用了一些Apcache Ant中的代码，称为Ant风格路径匹配策略，首先列举常用的例子：</p>
+<p>The mapping matches URLs using the following rules:<br>
+<ul>
+<li>{@code ?} matches one character</li>
+<li>{@code *} matches zero or more characters</li>
+<li>{@code **} matches zero or more <em>directories</em> in a path</li>
+<li>{@code {spring:[a-z]+}} matches the regexp {@code [a-z]+} as a path variable named "spring"</li>
+</ul>
+
+<p>注：最后一条，就知道为什么<code>@PathVariable</code>可以将花括号中的值赋给一个变量了</p>
+<p><em>Table Example Ant-Style Path Patterns</em><br>| Path                  |    Description |<br>| <code>/api/*.x</code>            |    匹配所有在app路径下的.x文件 |<br>| <code>/api/p?ttern</code>        |    匹配/app/pattern 和 /app/pXttern 但是不包括/app/pttern |<br>| <code>/**/example</code>         |    匹配/app/example/app/foo/example, 和 /example |<br>| <code>/api/**/dir/file.</code>   |    匹配/app/dir/file.jsp, /app/foo/dir/file.html,/app/foo/bar/dir/file.pdf, 和 /app/dir/file.java |<br>| <code>/**/*.jsp</code>           |    匹配任何的.jsp 文件 |<br>| <code>/api/&#123;id&#125;</code>           |   </p>
+<p><code>@RequestMapping</code>, <code>@CompenentScan</code>, <code>@PropertySource</code>以及spring-cloud-gateway中的URL匹配等都是Ant-style</p>
+<h3 id="RegEx-VS-Ant-style"><a href="#RegEx-VS-Ant-style" class="headerlink" title="RegEx VS Ant-style"></a>RegEx VS Ant-style</h3><p>正则表达式几乎所有编程语言都支持的通用模式，URL相较于普通的字符串具有很强的规律性：标准的分段式。因此，使用轻量级Ant风格表达式作为URL的匹配模式更为合适。</p>
+<h3 id="如何测试"><a href="#如何测试" class="headerlink" title="如何测试"></a>如何测试</h3><p>很多时候，URL匹配规则写完之后不知道是否正确，用最简单的方式来测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AntPathMatcherTest</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> PathMatcher M = <span class="keyword">new</span> AntPathMatcher();</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		String pattern = <span class="string">&quot;/api/*.html&quot;</span>;</span><br><span class="line">		 System.out.println(<span class="string">&quot;是否匹配成功：&quot;</span> + MATCHER.match(pattern, <span class="string">&quot;/api/index.html&quot;</span>));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2023/02/05/sourcecode-learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/02/05/sourcecode-learning/" class="post-title-link" itemprop="url">源码学习</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-02-05 18:00:45" itemprop="dateCreated datePublished" datetime="2023-02-05T18:00:45+08:00">2023-02-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="词汇学习"><a href="#词汇学习" class="headerlink" title="词汇学习"></a>词汇学习</h3><p>DefaultListableBeanFactory 可枚举的BeanFactory<br>ConfigurableListableBeanFactory 可配置的BeanFactory<br>refresh() 刷新BeanFactory<br>hasBeanFactory()<br>customizeBeanFactory()<br>obtainFreshBeanFactory() 获得新鲜的BeanFactory<br>GenericBeanDefinition 普通BeanDefinition<br>getBean()<br>doGetBean()<br>allowCircularReferences 允许循环依赖</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2023/02/04/spring-aware/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/02/04/spring-aware/" class="post-title-link" itemprop="url">Spring Aware</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-02-04 12:55:47" itemprop="dateCreated datePublished" datetime="2023-02-04T12:55:47+08:00">2023-02-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Aware接口的作用<br>Spring IOC容器在创建Bean对象的过程中，如果还需要其他对象，此时可以将对象实现Aware接口，来满足需要。<br>比如，我要通过Foo的对象来获得ApplicationContext，举例如下（XML配置省略）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> <span class="keyword">implements</span> <span class="title">ApplicationContextAware</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> ApplicationContext applicationContext;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setApplicationContext</span><span class="params">(ApplicationContext applicationContext)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.applicationContext = applicationContext;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ApplicationContext <span class="title">getApplicationContext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.applicationContext;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAwareTest</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		ApplicationContext applicationContext = <span class="keyword">new</span> ClassPathXmlApplication(<span class="string">&quot;YOUR_XML_PATH&quot;</span>);</span><br><span class="line">		Foo fooBean = applicationContext.getBean(Foo.class);</span><br><span class="line">		System.out.println(bean.getApplicationContext());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>org.springframework.context.ApplicationContextAware</code>继承<code>org.springframework.beans.factory.Aware</code>接口，它是一个顶级Aware接口，作用仅仅是Marker（标记），各种Aware功能的接口都要继承。<br>在实现Aware时，需要借助AOP，于是就有了<code>ApplicationContextAwareProcessor</code>，可以看到它实现了<code>BeanPostProcessor</code>，<code>BeanPostProcessor</code>是在Bean对象实例化之后进行Bean的Processor（增强）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ApplicationContextAwareProcessor</span> <span class="keyword">implements</span> <span class="title">BeanPostProcessor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> ConfigurableApplicationContext applicationContext;</span><br><span class="line">    <span class="comment">// code ...</span></span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="meta">@Nullable</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">postProcessBeforeInitialization</span><span class="params">(Object bean, String beanName)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">		<span class="comment">// code ...</span></span><br><span class="line"></span><br><span class="line">		invokeAwareInterfaces(bean);</span><br><span class="line">		<span class="keyword">return</span> bean;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">invokeAwareInterfaces</span><span class="params">(Object bean)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (bean <span class="keyword">instanceof</span> Aware) &#123;</span><br><span class="line">			<span class="keyword">if</span> (bean <span class="keyword">instanceof</span> EnvironmentAware environmentAware) &#123;</span><br><span class="line">				environmentAware.setEnvironment(<span class="keyword">this</span>.applicationContext.getEnvironment());</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (bean <span class="keyword">instanceof</span> EmbeddedValueResolverAware embeddedValueResolverAware) &#123;</span><br><span class="line">				embeddedValueResolverAware.setEmbeddedValueResolver(<span class="keyword">this</span>.embeddedValueResolver);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (bean <span class="keyword">instanceof</span> ResourceLoaderAware resourceLoaderAware) &#123;</span><br><span class="line">				resourceLoaderAware.setResourceLoader(<span class="keyword">this</span>.applicationContext);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (bean <span class="keyword">instanceof</span> ApplicationEventPublisherAware applicationEventPublisherAware) &#123;</span><br><span class="line">				applicationEventPublisherAware.setApplicationEventPublisher(<span class="keyword">this</span>.applicationContext);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (bean <span class="keyword">instanceof</span> MessageSourceAware messageSourceAware) &#123;</span><br><span class="line">				messageSourceAware.setMessageSource(<span class="keyword">this</span>.applicationContext);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (bean <span class="keyword">instanceof</span> ApplicationStartupAware applicationStartupAware) &#123;</span><br><span class="line">				applicationStartupAware.setApplicationStartup(<span class="keyword">this</span>.applicationContext.getApplicationStartup());</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (bean <span class="keyword">instanceof</span> ApplicationContextAware applicationContextAware) &#123;</span><br><span class="line">				applicationContextAware.setApplicationContext(<span class="keyword">this</span>.applicationContext);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2023/01/20/spring-aop-not-working/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/01/20/spring-aop-not-working/" class="post-title-link" itemprop="url">Spring AOP不生效</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-01-20 12:17:21" itemprop="dateCreated datePublished" datetime="2023-01-20T12:17:21+08:00">2023-01-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <a href="/2021/10/01/spring-aop/" title="Spring AOP基础">Spring AOP基础</a>，这里不在赘述.
+<h3 id="AOP不生效的案例"><a href="#AOP不生效的案例" class="headerlink" title="AOP不生效的案例"></a>AOP不生效的案例</h3><p>在生产上遇到Spring Cache的注解@CacheEvict不生效，究其原因是在定时任务注解@Scheduled修饰的方法调用了其他方法，这些方法也被@CacheEvict修饰，因为这两个注解都是用Spring AOP来实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定时任务类</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScheduledTask</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> TreasuryFuturesBinJob treasuryFuturesBinJob;</span><br><span class="line">  <span class="meta">@Scheduled(cron = &quot;0 0/1 * * * ?&quot;)</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">treasuryFuturesProcess</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  	<span class="comment">// run方法被@CacheEvict修饰</span></span><br><span class="line">    treasuryFuturesBinJob.run();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TreasuryFuturesBinJob</span> </span>&#123;</span><br><span class="line">  <span class="meta">@CacheEvict(cacheNames = &#123;AuthorizationMenu._TREASURYFUTURES, AuthorizationMenu._CFFEXMEMBER&#125;, allEntries = true)</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// do something ...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="不生效的原因分析"><a href="#不生效的原因分析" class="headerlink" title="不生效的原因分析"></a>不生效的原因分析</h3><p>这些注解都是利用Spring AOP机制起作用，Spring AOP要使用动态代理来实现，无论是JDK动态代理，还是CGLIB动态代理，都会生成代理类。在IOC容器管理Bean对象管理的过程中，有些Bean对象可能已经不是原始的Bean对象了。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2022/12/24/ngnix/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/12/24/ngnix/" class="post-title-link" itemprop="url">记录一次Nginx的严重错误</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-12-24 17:51:55" itemprop="dateCreated datePublished" datetime="2022-12-24T17:51:55+08:00">2022-12-24</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>nginx监听80端口代理网关应用，对应的nginx配置conf.d/gateway.conf</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span>       <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span>  <span class="number">192.168.56.10</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> Host $host;  <span class="comment">#[1]</span></span><br><span class="line">        <span class="attribute">proxy_pass</span> http://192.168.100.2:88;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>spring-cloud-gateway应用的配置如下</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">foomall-gateway</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">foomall_host_route</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">lb://foomall-product</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Host=192.168.56.10</span></span><br></pre></td></tr></table></figure>
+<p>此时，在地址栏输入<code>http://192.168.56.10</code>后显示404，从配置得知gateway通过Host参数来进行路由，也就是HTTP Header中的Host参数，说明其未生效。<br>原因就是Nginx在代理<code>http://192.168.56.10</code>请求时，将Host参数弄丢了，所以在<code>[1]</code>的位置加上<code>proxy_set_header Host $host;</code>，除了这个参数，Nginx在代理的过程中会丢失很多参数</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2022/12/12/continuous-addition/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/12/12/continuous-addition/" class="post-title-link" itemprop="url">滑动窗口的一次应用</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-12-12 20:11:43" itemprop="dateCreated datePublished" datetime="2022-12-12T20:11:43+08:00">2022-12-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="累加序列"><a href="#累加序列" class="headerlink" title="累加序列"></a>累加序列</h2><p>Review同事的代码发现一段关于累加的代码，场景大概是这样的：<br>日期对应数值序列，现在要累加这些指标，计算出每一天往前推3天的总和，画出一个折线图，并要求可以配置累加天数。举个例子，如果今天是周四，那么今天应该计算周一到周三的指标总和，今天是周五的话，要计算周二到周四的总和。<br>我看了他的代码，他是这样处理的：整体是两次for循环，外层循环遍历整个序列，内层循环向前倒序遍历3次做累加，然后输出结果值，然后外层循环+1，整体的时间复杂度是O(3n)，虽说可以近似为O(n)，但是直觉告诉我有优化的空间，可以一趟遍历得到答案。<br>通过分析过程发现，同事的代码，上一次计算和下一次计算累加的过程有重叠的。周四=周三+周二+周一，周五=周四+周三+周二，三个值计算还行，如果要累加30天，这样就重复计算了28天的数据。我给出了以下优化后的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] continuousAddition(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> count) &#123;</span><br><span class="line">    <span class="keyword">int</span> n = arr.length;</span><br><span class="line">    <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[n - count - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">if</span> (count &gt; n) <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">int</span> p = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (p &lt; count) &#123;</span><br><span class="line">      sum += arr[p++];</span><br><span class="line">    &#125;</span><br><span class="line">    res[p - count] = sum;</span><br><span class="line">    p++;</span><br><span class="line">    <span class="keyword">while</span> (p &lt;= n) &#123;</span><br><span class="line">      <span class="comment">// 只计算首尾，减去第一天，加上最后一天</span></span><br><span class="line">      sum = sum + arr[p - <span class="number">1</span>] - arr[p - <span class="number">1</span> - count];</span><br><span class="line">      res[p - count] = sum;</span><br><span class="line">      p++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">The Rings</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

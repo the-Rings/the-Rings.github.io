@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"the-rings.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="AOP概念对于系统中普遍的业务关注点, OOP可以很好地对其进行分解并使之模块化, 但是却无法更好地避免类似于系统需求的实现在系统中各处散落这样的问题. 所以, 我们要寻求一种更好的办法在OOP的基础上更上一层楼. 我们可以推翻OOP的概念提出一套全新的思路, 但是也可以在此基础上提供一种补足方案. 后来我们找到了AOP.  静态AOP, 第一代AOP, 以AspectJ为代表. 特点是, 相应的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring AOP原理">
+<meta property="og:url" content="https://the-rings.github.io/2021/10/01/spring-aop/index.html">
+<meta property="og:site_name" content="免逸">
+<meta property="og:description" content="AOP概念对于系统中普遍的业务关注点, OOP可以很好地对其进行分解并使之模块化, 但是却无法更好地避免类似于系统需求的实现在系统中各处散落这样的问题. 所以, 我们要寻求一种更好的办法在OOP的基础上更上一层楼. 我们可以推翻OOP的概念提出一套全新的思路, 但是也可以在此基础上提供一种补足方案. 后来我们找到了AOP.  静态AOP, 第一代AOP, 以AspectJ为代表. 特点是, 相应的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-01T11:07:03.000Z">
+<meta property="article:modified_time" content="2023-02-20T14:37:25.352Z">
+<meta property="article:author" content="The Rings">
+<meta property="article:tag" content="AOP">
+<meta property="article:tag" content="Spring">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://the-rings.github.io/2021/10/01/spring-aop/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://the-rings.github.io/2021/10/01/spring-aop/","path":"2021/10/01/spring-aop/","title":"Spring AOP原理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Spring AOP原理 | 免逸</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">免逸</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">下一代web开发是什么样的？下一代类报表系统是什么样的？</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AOP%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">AOP概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Joinpoint"><span class="nav-number">1.1.</span> <span class="nav-text">Joinpoint</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pointcut"><span class="nav-number">1.2.</span> <span class="nav-text">Pointcut</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Advice"><span class="nav-number">1.3.</span> <span class="nav-text">Advice</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Aspect"><span class="nav-number">1.4.</span> <span class="nav-text">Aspect</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-AOP"><span class="nav-number">2.</span> <span class="nav-text">Spring AOP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E4%B8%8ECGLIB-%E5%9F%BA%E4%BA%8EASM"><span class="nav-number">2.1.</span> <span class="nav-text">JDK动态代理与CGLIB(基于ASM)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringAOP%E7%9A%84%E7%BB%87%E5%85%A5"><span class="nav-number">3.</span> <span class="nav-text">SpringAOP的织入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A2%E7%B4%A2ProxyFactory%E6%9C%AC%E8%B4%A8"><span class="nav-number">3.1.</span> <span class="nav-text">探索ProxyFactory本质</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">The Rings</p>
+  <div class="site-description" itemprop="description">软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://the-rings.github.io/2021/10/01/spring-aop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="The Rings">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="免逸">
+      <meta itemprop="description" content="软件开发一直追求更加高效, 更加已维护甚至更易扩展的方式">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Spring AOP原理 | 免逸">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spring AOP原理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-01 19:07:03" itemprop="dateCreated datePublished" datetime="2021-10-01T19:07:03+08:00">2021-10-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="AOP概念"><a href="#AOP概念" class="headerlink" title="AOP概念"></a>AOP概念</h2><p>对于系统中普遍的业务关注点, OOP可以很好地对其进行分解并使之模块化, <strong>但是却无法更好地避免类似于系统需求的实现在系统中各处散落这样的问题</strong>. 所以, 我们要寻求一种更好的办法在OOP的基础上更上一层楼. 我们可以推翻OOP的概念提出一套全新的思路, 但是也可以在此基础上提供一种补足方案. 后来我们找到了AOP.</p>
+<ul>
+<li>静态AOP, 第一代AOP, 以AspectJ为代表. 特点是, 相应的横切关注点以Aspect形式实现之后, 会通过特定的编译器, 将实现后的Aspect编译并织入到系统的静态类中. 比如, AspectJ会使用ajc编译器将各个Aspect以Java字节码的形式编译到Java类中, Java虚拟机可以像通常一样加载Java类运行.</li>
+<li>动态AOP, 第二代AOP, 通过Java语言的动态特性来实现Aspect织入到系统的过程, 比如Spring AOP.</li>
+</ul>
+<h3 id="Joinpoint"><a href="#Joinpoint" class="headerlink" title="Joinpoint"></a>Joinpoint</h3><p>首先我们需要知道在哪些执行点上进行织入操作, 这些将要在其之上进行织入操作的系统执行点, 称之为Joinpoint. 比如, 方法调用时, 执行时, 字段设置时, 异常处理时, 类初始化时等等.</p>
+<h3 id="Pointcut"><a href="#Pointcut" class="headerlink" title="Pointcut"></a>Pointcut</h3><p>接下来需要知道在什么地方(Joinpoint)织入横切逻辑. 比如, 指定Joinpoint所在方法的名称, 或者利用正则表达式表述出所有符合条件的多组Joinpoint.</p>
+<h3 id="Advice"><a href="#Advice" class="headerlink" title="Advice"></a>Advice</h3><p>逻辑载体, 即织入到Joinpoint的横切逻辑. 它分为几种形式:</p>
+<ul>
+<li>Before Advice, 在Joinpoint位置之前执行的Advice类型</li>
+<li>After Advice, 在Joinpoint位置之后, 包括After returning Advice, Afterthrowing Advice等</li>
+<li>Around Advice, 这里应该叫做拦截器比较好, Interceptor. 它也可以完成Before Advice和After Advice的功能.</li>
+<li>Introduction</li>
+</ul>
+<h3 id="Aspect"><a href="#Aspect" class="headerlink" title="Aspect"></a>Aspect</h3><p>Aspect是对以上三者进行封装的AOP概念.</p>
+<p>我们可以在Spring源码中看到对应关键词<code>org.springframework.aop.config.ConfigBeanDefinitionParser</code>，这个类主要用来解析xml中定义的<code>&lt;aop:config&gt;</code>等标签，以下是部分源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConfigBeanDefinitionParser</span> <span class="keyword">implements</span> <span class="title">BeanDefinitionParser</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ASPECT = <span class="string">&quot;aspect&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String EXPRESSION = <span class="string">&quot;expression&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ID = <span class="string">&quot;id&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String POINTCUT = <span class="string">&quot;pointcut&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ADVICE_BEAN_NAME = <span class="string">&quot;adviceBeanName&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ADVISOR = <span class="string">&quot;advisor&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ADVICE_REF = <span class="string">&quot;advice-ref&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String POINTCUT_REF = <span class="string">&quot;pointcut-ref&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String REF = <span class="string">&quot;ref&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String BEFORE = <span class="string">&quot;before&quot;</span>;</span><br><span class="line">    <span class="comment">// ....</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Spring-AOP"><a href="#Spring-AOP" class="headerlink" title="Spring AOP"></a>Spring AOP</h2><p>AOP是一种理论, Spring AOP是针对Spring框架落地的一种AOP实现.</p>
+<h3 id="JDK动态代理与CGLIB-基于ASM"><a href="#JDK动态代理与CGLIB-基于ASM" class="headerlink" title="JDK动态代理与CGLIB(基于ASM)"></a>JDK动态代理与CGLIB(基于ASM)</h3><a href="/2021/08/01/pattern-proxy-and-dynamic/" title="动态代理">动态代理</a>，这里不在赘述.
+<p>结合Spring AOP来说, 动态代理实现InvocationHandler的类是我们实现横切逻辑的地方, 它是横切逻辑的载体, 作用和Advice是一样的. 这就理解了Advice是什么了.<br>动态代理虽好, 但是不能满足所有需求. 因为动态代理机制只能对实现了相应接口的类使用, 如果某个类没有实现任何接口, 就无法使用动态代理机制为其生成相应的动态代理对象.</p>
+<p>使用CGLIB动态字节码生成技术扩展对象行为的原理是, 我们可以对目标对象进行继承扩展, 为其生成相应的子类, 而子类可以通过重写来扩展父类的行为, 只要将横切逻辑放的实现放到子类中, 然后让系统使用扩展后的目标对象的子类, 就可以达到相同的目的了. CGLIB(基于ASM)可以对实现了某种接口的类, 或者没有实现任何接口的类都可以进行扩展.<br>通常我们会直接使用<code>net.sf.cglib.proxy.MethodInterceptor</code>接口(扩展了net.sf.cglib.proxy.Callback接口): </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Requestable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;OK&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RequestCtrlInterceptor</span> <span class="keyword">implements</span> <span class="title">MethodInterceptor</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Log logger = LogFactory.getLog(RequestCtrlInterceptor.class);</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object object, Method method, Object[] args, MethodProxy proxy)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(method.getName().equals(<span class="string">&quot;request&quot;</span>)) &#123;</span><br><span class="line">           TimeOfDay startTime = <span class="keyword">new</span> TiemOfDay(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">           TimeOfDay endTime = <span class="keyword">new</span> TiemOfDay(<span class="number">5</span>, <span class="number">59</span>, <span class="number">59</span>);</span><br><span class="line">           TiemOfDay currentTime = <span class="keyword">new</span> TimeDay();</span><br><span class="line">           <span class="keyword">if</span>(currentTime.isAfter(startTime) &amp;&amp; currentTime.isBefore(endTime)) &#123;</span><br><span class="line">               logger.warn(<span class="string">&quot;Service is not available now.&quot;</span>);</span><br><span class="line">               <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">return</span> proxy.invokeSuper(object, args);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样, RequestCtrlInterceptor就实现了对request()方法请求进行访问控制的逻辑. 现在我们要通过CGLIB的Enhance类为目标动态生成一个类, 并将RequestCtrlInterceptor中的横切逻辑附加到该子类中, 代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Enhancer enhancer = <span class="keyword">new</span> Enhancer();</span><br><span class="line">enhancer.setSuperclass(Requestable.class);</span><br><span class="line">enhancer.setCallback(<span class="keyword">new</span> RequestCtrlInterceptor());</span><br><span class="line"></span><br><span class="line">Requestable proxy = (Requestable) enhancer.create();</span><br><span class="line">proxy.request();</span><br></pre></td></tr></table></figure>
+<p>这里是使用Enhancer来演示在对象中加入横切逻辑, 在后续的内容中我们将会使用经过封装的更高级的Spring AOP工具, Advisor</p>
+<p>对于Joinpoint, Spring AOP仅支持方法级别的Joinpoint, 更确切的说, 仅支持方法执行(Method Execution)类型的Joinpoint, 原因有以下几点:</p>
+<ul>
+<li>Spring AOP设计理念是，简单而强大</li>
+<li>对于类属性Field级别的Joinpoint, 完全可以使用getter/setter方法的拦截来达到同样的目的</li>
+<li>如果要求十分特殊, 借助AspectJ即可(当然即使是AspectJ这样支持很多Joinpoint类型的AOP实现产品, 也无法保证能捕捉到程序流程中的任何一个点)</li>
+</ul>
+<p>对于Pointcut, Spring AOP提供了org.springframework.aop.Pointcut接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Pointcut</span> </span>&#123;</span><br><span class="line">    ClassFilter getClassFilter;</span><br><span class="line">    MethodMatcher getMethodMatcher;</span><br><span class="line">    Pointcut TRUE = TruePointcut.INSTANCE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>见名知意, 不是重点, 不再赘述</p>
+<p>对于Advice, Advice是实现了将织入到Pointcut规定的Joinpoint处的横切逻辑. Advice的几种类型, 重点介绍Around Advice.<br>Spring中没有直接定义Around Advice的实现接口, 而是采用AOP Alliance的标准接口, 即: <code>org.aopalliance.intercept.MethodInterceptor</code>, 该接口定义如下: </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.aopalliance.intercept;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Intercepts calls on an interface on its way to the target. These</span></span><br><span class="line"><span class="comment"> * are nested &quot;on top&quot; of the target.</span></span><br><span class="line"><span class="comment"> * ...</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MethodInterceptor</span> <span class="keyword">extends</span> <span class="title">Interceptor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Implement this method to perform extra treatments before and</span></span><br><span class="line"><span class="comment">	 * after the invocation. Polite implementations would certainly</span></span><br><span class="line"><span class="comment">	 * like to invoke &#123;<span class="doctag">@link</span> Joinpoint#proceed()&#125;.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> invocation the method invocation joinpoint</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> the result of the call to &#123;<span class="doctag">@link</span> Joinpoint#proceed()&#125;;</span></span><br><span class="line"><span class="comment">	 * might be intercepted by the interceptor</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@throws</span> Throwable if the interceptors or the target object</span></span><br><span class="line"><span class="comment">	 * throws an exception</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function">Object <span class="title">invoke</span><span class="params">(MethodInvocation invocation)</span> <span class="keyword">throws</span> Throwable</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其他的Advice能做到的事情, 它都可以做, 或者说Around Advice可以应用的场景很多, 例如: 系统安全检查/系统各处性能检测/日志记录/系统附件行为的添加等.</p>
+<p>接下来是一个场景: 销售系统, 在商场优惠期间, 所有的商品一律8折, 那么我们在系统中所有取得商品价格的地方插入如下横切逻辑.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DiscountMethodInterceptor</span> <span class="keyword">implements</span> <span class="title">MethodInterceptor</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Integer DEFAULT_DISCOUNT_RATIO = <span class="number">80</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span> <span class="params">(MethodInvocation invocation)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        Object returnValue = invocation.proceed();</span><br><span class="line">        <span class="keyword">return</span> ((Integer) returnValue) * DEFAULT_DISCOUNT_RATIO / <span class="number">100</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过MethodInvocation的invoke方法的MethodInvocation参数, 我们可以控制相应的Joinpoint的拦截行为. 通过调用MethodInvocation的proceed()方法, 可以让程序执行继续沿着调用链传播, 这是我们所希望的行为. 如果我们在哪一个MethodInterceptor中没有调用proceed(),那么程序的执行将会在MethodInterceptor处”短路”.</p>
+</blockquote>
+<p>我们使用了Spring框架, 并且这些Advice实现都是普通的POJO, 更多时候, 会直接将其集成到IoC容器中, 如下所示:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;discountInterceptor&quot;</span> <span class="attr">class</span>=<span class="string">&quot;...DiscountMethodInterceptor&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>当我定义了多个MethodInterceptor时, 他们是如何执行呢?这就要用到**<a href="/2021/11/02/pattern-chain-of-responsibility/" title="责任链模式">责任链模式</a>**</p>
+<h2 id="SpringAOP的织入"><a href="#SpringAOP的织入" class="headerlink" title="SpringAOP的织入"></a>SpringAOP的织入</h2><p>AspectJ使用ajc编译器作为它的织入器, 在SpringAOP中使用<code>org.springframework.aop.ProxyFactory</code>, 在Spring AOP中这是最基本的织入器.</p>
+<p>总的思路是: <strong>Spring AIO是基于代理模式的AOP实现, 织入完成后, 会返回织入横切逻辑的代理对象</strong>. 也就是说ProxyFactory返回织入了横切逻辑的代理对象.</p>
+<p>使用ProxyFactory需要两个基本的东西, 一个是传入进行织入的目标对象, 一个是将要应用到目标对象的Aspect(在Spring中叫做Advisor). 指定对应的Advisor, 就可以添加各种类型的Advice, 比如伪代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ProxyFactory weaver = <span class="keyword">new</span> ProxyFactory(<span class="keyword">new</span> Executable());</span><br><span class="line">NameMatchMethodPointcutAdvisor advisor = <span class="keyword">new</span> NameMathMethodPointcutAdvisor();</span><br><span class="line">advisor.setMappedName(<span class="string">&quot;request&quot;</span>);</span><br><span class="line">advisor.setAdvice(<span class="keyword">new</span> RequestCtrlInterceptor());</span><br><span class="line">weaver.addAdvisor(advisor);</span><br><span class="line"></span><br><span class="line"><span class="comment">// </span></span><br><span class="line">weaver.setProxyTargetClass(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">Requestable proxyObject = (Requestable) weaver.getProxy();</span><br><span class="line">proxyObject.request();</span><br><span class="line">System.out.println(proxyObject.getClass());</span><br><span class="line"></span><br><span class="line"><span class="comment">// out</span></span><br><span class="line"><span class="comment">// class ...Requestable$$EnhancerByCGLIB$$9e62fc83</span></span><br><span class="line"><span class="comment">// 从输出中可以看出ProxyFactory底层还是使用了之前的Enhancer, 也可以看出通过CGLIB得到的类的命名方式与动态代理的方式不太一样, 动态代理是&quot;$Proxy0&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>我们知道Spring AOP在使用代理模式实现AOP的过程中采用了动态代理和CGLIB两种机制, 分别对实现了某些接口的目标类和没有实现任何接口的目标类进行代理. 当目标类没有实现任何接口时, 默认使用动态代理, 但是这里设置了<code>proxyTargetClass</code>的属性为<code>true</code>, 强制其采用基于类的代理, 即使目标类确实是基于接口的.</p>
+<h3 id="探索ProxyFactory本质"><a href="#探索ProxyFactory本质" class="headerlink" title="探索ProxyFactory本质"></a>探索ProxyFactory本质</h3><p>先来看一下类之间的关系</p>
+<img  src=http://www.plantuml.com/plantuml/svg/RO_12i8m44Jl-OezwgK7Zo92KKH5KF0BrissH6ksfAjOr7_NAbLRcrCoCzbv6zkpAzXkJtakGM4KHH1BlWboAMT8Ag4S0X99iCwde6ASLmu94hTpS3NmFBKA51YLwsSlRXQH-CIbVNCtxJ6ZsvDXoWcUCcrvfWf_Sbsexz8cP9DllTipAQIiRwv-fph9i2XMWfO3qFTUyJOOAjQbFKnBZqT7hx_6j0I8ejiO5luiXEh4pz7RZCCFv9y7ruwUIPgvtQ1UsJm0>
+
+<p>其中AopProxy有Cglib2AopProxy和JdkDynamicProxy两种实现. 因为动态代理需要通过InvocationHandler提供调用拦截, 所以JdkDynamicProxy同时也要实现InvocationHandler接口.</p>
+<p>AopProxy实例化代理对象的过程采用了抽象工厂模式进行封装, 即通过AopProxyFactory进行.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AopProxyFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Create an &#123;<span class="doctag">@link</span> AopProxy&#125; for the given AOP configuration.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> config the AOP configuration in the form of an</span></span><br><span class="line"><span class="comment">	 * AdvisedSupport object</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> the corresponding AOP proxy</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@throws</span> AopConfigException if the configuration is invalid</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function">AopProxy <span class="title">createAopProxy</span><span class="params">(AdvisedSupport config)</span> <span class="keyword">throws</span> AopConfigException</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>AopProxyFactory的实现类只有一个, 就是DefaultAopProxyFactory, 在DefaultAopProxyFactory会经过一个判断来决定使用Cglib还是动态代理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(config.isOptimize || config.isProxyTargetClass() || ...) &#123;</span><br><span class="line">    <span class="comment">// 创建Cglib2AopProxy实例, 返回</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 创建JdkDynamicAopProxy实例, 返回</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以下内容定格在177页《Spring揭秘》, 关于AOP的剩余内容以后在补充.</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AOP/" rel="tag"># AOP</a>
+              <a href="/tags/Spring/" rel="tag"># Spring</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/09/28/spring-boot-startup/" rel="prev" title="SpringBoot启动简要流程">
+                  <i class="fa fa-angle-left"></i> SpringBoot启动简要流程
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/10/05/professional-dictionary/" rel="next" title="专业词汇">
+                  专业词汇 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">The Rings</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
